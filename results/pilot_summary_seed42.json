@@ -1,0 +1,62 @@
+{
+  "purpose": "Specialist pilot; one seed; not final multi-seed evidence.",
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "transformers": "5.0.0",
+    "datasets": "5.0.0",
+    "gpu": "Tesla T4"
+  },
+  "model": "prajjwal1/bert-mini",
+  "seed": 42,
+  "max_steps_per_task": 400,
+  "learning_rate": 2e-05,
+  "train_batch_size": 32,
+  "eval_batch_size": 64,
+  "tasks": {
+    "sst2": {
+      "primary_metric": "accuracy",
+      "train_samples": 12000,
+      "eval_samples": 872,
+      "train_loss": 1.1003064727783203,
+      "eval_loss": 0.9981321096420288,
+      "eval_accuracy": 0.7752293577981652,
+      "eval_f1": 0.7731481481481481,
+      "train_runtime_seconds": 21.7848
+    },
+    "imdb": {
+      "primary_metric": "accuracy",
+      "train_samples": 12000,
+      "eval_samples": 2000,
+      "train_loss": 1.1265806579589843,
+      "eval_loss": 0.9674147367477417,
+      "eval_accuracy": 0.7725,
+      "eval_f1": 0.7735191637630662,
+      "train_runtime_seconds": 24.721
+    },
+    "mrpc": {
+      "primary_metric": "f1",
+      "train_samples": 3668,
+      "eval_samples": 408,
+      "train_loss": 1.137821807861328,
+      "eval_loss": 1.057210922241211,
+      "eval_accuracy": 0.75,
+      "eval_f1": 0.8349514563106796,
+      "train_runtime_seconds": 21.449
+    },
+    "rte": {
+      "primary_metric": "accuracy",
+      "train_samples": 2490,
+      "eval_samples": 277,
+      "train_loss": 1.2516114807128906,
+      "eval_loss": 1.3097448348999023,
+      "eval_accuracy": 0.6064981949458483,
+      "eval_f1": 0.4293193717277487,
+      "train_runtime_seconds": 24.5438
+    }
+  },
+  "decision": {
+    "status": "accepted_for_pairwise_merging_pilot",
+    "reason": "All specialists exceed a naive chance reference on their primary metric. RTE is retained as a difficult low-resource stress test. Hyperparameters remain identical across tasks to preserve the controlled optimization budget."
+  }
+}

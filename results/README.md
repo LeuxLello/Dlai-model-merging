@@ -13,3 +13,9 @@ Raw logs and checkpoints belong in Kaggle outputs or another artifact store and 
 - `smoke_test_2026-08-19.json`: first end-to-end Kaggle validation. It confirms that data loading,
   specialist training, checkpoint serialization, and all three merging implementations execute. Its
   tiny-data metrics are diagnostic only and are not part of the final experiment.
+
+## Specialist pilot
+
+- `pilot_metrics_seed42.csv`: compact metrics for the first meaningful four-task training run.
+- `pilot_summary_seed42.json`: environment, protocol, metrics, and the decision to proceed to the
+  pairwise merging pilot. This remains single-seed pilot evidence, not the final multi-seed result.
