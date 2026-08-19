@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "purpose": "Technical pipeline validation only; not a scientific result.",
+  "date": "2026-08-19",
+  "platform": "Kaggle",
+  "kaggle_notebook": "leonardolavezzari/01-kaggle-smoke-test",
+  "kaggle_version": 3,
+  "total_runtime": "1m 29s",
+  "accelerator": "GPU T4 x2",
+  "model": "prajjwal1/bert-mini",
+  "seed": 42,
+  "protocol": {
+    "train_samples_per_task": 256,
+    "eval_samples_per_task": 128,
+    "epochs": 1,
+    "max_length": 128,
+    "train_batch_size": 32,
+    "eval_batch_size": 64,
+    "learning_rate": 2e-05
+  },
+  "tasks": {
+    "sst2": {
+      "primary_metric": "accuracy",
+      "train_runtime_seconds": 2.2325,
+      "train_loss": 1.3667218685150146,
+      "eval_loss": 1.3843114376068115,
+      "eval_accuracy": 0.5390625,
+      "eval_f1": 0.700507614213198
+    },
+    "imdb": {
+      "primary_metric": "accuracy",
+      "train_runtime_seconds": 0.6935,
+      "train_loss": 1.450326681137085,
+      "eval_loss": 1.4456002712249756,
+      "eval_accuracy": 0.4765625,
+      "eval_f1": 0.6455026455026455
+    },
+    "mrpc": {
+      "primary_metric": "f1",
+      "train_runtime_seconds": 0.5616,
+      "train_loss": 1.3752652406692505,
+      "eval_loss": 1.3202685117721558,
+      "eval_accuracy": 0.6640625,
+      "eval_f1": 0.7981220657276995
+    },
+    "rte": {
+      "primary_metric": "accuracy",
+      "train_runtime_seconds": 0.6214,
+      "train_loss": 1.4118703603744507,
+      "eval_loss": 1.3751068115234375,
+      "eval_accuracy": 0.5234375,
+      "eval_f1": 0.6432748538011696
+    }
+  },
+  "checks": {
+    "cuda_available": true,
+    "all_unit_tests_passed": true,
+    "all_four_specialists_completed": true,
+    "mean_merge_structurally_valid": true,
+    "task_arithmetic_structurally_valid": true,
+    "ties_merge_structurally_valid": true
+  },
+  "interpretation": "Near-chance task metrics are expected under this deliberately tiny one-epoch smoke protocol. These values must not be cited as final experimental evidence."
+}
