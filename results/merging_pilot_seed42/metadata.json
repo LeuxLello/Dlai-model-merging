@@ -1,0 +1,23 @@
+{
+  "purpose": "pairwise merging pilot; seed 42; hyperparameters not final",
+  "seed": 42,
+  "tasks": [
+    "sst2",
+    "imdb",
+    "mrpc",
+    "rte"
+  ],
+  "scales": [
+    0.5,
+    0.75,
+    1.0
+  ],
+  "densities": [
+    0.1,
+    0.2,
+    0.5
+  ],
+  "gpu": "Tesla T4",
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128"
+}

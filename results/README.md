@@ -19,3 +19,8 @@ Raw logs and checkpoints belong in Kaggle outputs or another artifact store and 
 - `pilot_metrics_seed42.csv`: compact metrics for the first meaningful four-task training run.
 - `pilot_summary_seed42.json`: environment, protocol, metrics, and the decision to proceed to the
   pairwise merging pilot. This remains single-seed pilot evidence, not the final multi-seed result.
+
+## Pairwise merging pilot
+
+- `merging_pilot_seed42/`: exact compact output, figure, and a cautious interpretation of the first
+  six-pair merging grid. The directory contains all 156 task-level evaluations.
