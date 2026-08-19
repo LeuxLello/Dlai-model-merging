@@ -71,6 +71,12 @@ Subject to compute budget:
 - remove sign election from TIES;
 - compare global and layer-wise trimming.
 
+### Frozen configuration after the seed-42 pilot
+
+Before running seeds 7 and 123, the confirmatory comparison was frozen to Mean, Task Arithmetic
+with scale 0.75, and TIES with scale 1.0 and density 0.2. No per-pair retuning is allowed for the
+confirmatory runs.
+
 ## 4. Success criteria
 
 The minimum complete project contains:
@@ -108,4 +114,3 @@ The minimum complete project contains:
 - References and optional appendix
 - Mandatory AI-use statement
 - Submission email with the exact official subject and recipients
-
