@@ -1,0 +1,28 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+.env
+.env.*
+.idea/
+.vscode/
+
+# Experiment artifacts
+artifacts/
+checkpoints/
+wandb/
+mlruns/
+*.pt
+*.pth
+*.safetensors
+
+# Keep lightweight result summaries, ignore raw runs
+results/raw/
+
+# Notebook noise
+.ipynb_checkpoints/
+
+# Local temporary files
+tmp/
+

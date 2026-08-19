@@ -1,0 +1,41 @@
+project_name: dlai-model-merging
+base_model: prajjwal1/bert-mini
+max_length: 128
+seed: 42
+
+training:
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  train_batch_size: 32
+  eval_batch_size: 64
+  epochs: 3
+  warmup_ratio: 0.06
+  fp16: true
+
+tasks:
+  sst2:
+    dataset: glue
+    subset: sst2
+    text_columns: [sentence]
+    metric: accuracy
+  imdb:
+    dataset: imdb
+    subset: null
+    text_columns: [text]
+    metric: accuracy
+  mrpc:
+    dataset: glue
+    subset: mrpc
+    text_columns: [sentence1, sentence2]
+    metric: f1
+  rte:
+    dataset: glue
+    subset: rte
+    text_columns: [sentence1, sentence2]
+    metric: accuracy
+
+merging:
+  methods: [mean, task_arithmetic, ties]
+  scales: [0.5, 0.75, 1.0]
+  ties_densities: [0.1, 0.2, 0.5]
+
