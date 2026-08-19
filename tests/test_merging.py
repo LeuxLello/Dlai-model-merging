@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from dlai_merge.diagnostics import cosine_similarity, sign_agreement
+from dlai_merge.diagnostics import cosine_similarity, l2_norm, sign_agreement, subtract_states
 from dlai_merge.merging import mean_merge, task_arithmetic, ties_merge
 
 
@@ -36,4 +36,5 @@ def test_invalid_density_fails_loudly():
 def test_diagnostics():
     assert cosine_similarity(state([1.0, 0.0]), state([1.0, 0.0])) == pytest.approx(1.0)
     assert sign_agreement(state([1.0, -1.0]), state([2.0, 3.0])) == pytest.approx(0.5)
-
+    difference = subtract_states(state([3.0, 4.0]), state([0.0, 0.0]))
+    assert l2_norm(difference) == pytest.approx(5.0)

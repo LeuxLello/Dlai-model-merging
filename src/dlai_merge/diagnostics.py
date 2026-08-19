@@ -9,6 +9,18 @@ import torch
 StateDict = Mapping[str, torch.Tensor]
 
 
+def subtract_states(left: StateDict, right: StateDict) -> dict[str, torch.Tensor]:
+    """Return the floating-point parameter difference ``left - right``."""
+    if set(left) != set(right):
+        raise ValueError("States must have identical parameter names.")
+    return {key: left[key].detach().float() - right[key].detach().float() for key in left}
+
+
+def l2_norm(state: StateDict) -> float:
+    vector = flatten_state(state)
+    return float(vector.norm())
+
+
 def flatten_state(state: StateDict) -> torch.Tensor:
     """Flatten floating-point tensors in deterministic key order."""
     tensors = [state[key].detach().float().reshape(-1) for key in sorted(state)]
@@ -31,4 +43,3 @@ def sign_agreement(left: StateDict, right: StateDict, eps: float = 0.0) -> float
     if not active.any():
         return float("nan")
     return float((a[active].sign() == b[active].sign()).float().mean())
-
