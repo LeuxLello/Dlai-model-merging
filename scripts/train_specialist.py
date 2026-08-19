@@ -17,6 +17,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-train-samples", type=int)
     parser.add_argument("--max-eval-samples", type=int)
     parser.add_argument("--epochs", type=float, default=3.0)
+    parser.add_argument("--max-steps", type=int, default=-1)
+    parser.add_argument("--eval-steps", type=int, default=100)
     parser.add_argument("--train-batch-size", type=int, default=32)
     parser.add_argument("--eval-batch-size", type=int, default=64)
     return parser.parse_args()
@@ -32,6 +34,8 @@ def main() -> None:
         max_train_samples=args.max_train_samples,
         max_eval_samples=args.max_eval_samples,
         epochs=args.epochs,
+        max_steps=args.max_steps,
+        eval_steps=args.eval_steps,
         train_batch_size=args.train_batch_size,
         eval_batch_size=args.eval_batch_size,
     )
@@ -40,4 +44,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

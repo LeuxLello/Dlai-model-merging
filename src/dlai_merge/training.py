@@ -31,6 +31,8 @@ class TrainConfig:
     max_train_samples: int | None = None
     max_eval_samples: int | None = None
     epochs: float = 3.0
+    max_steps: int = -1
+    eval_steps: int = 100
     learning_rate: float = 2e-5
     weight_decay: float = 0.01
     train_batch_size: int = 32
@@ -95,9 +97,12 @@ def train_specialist(config: TrainConfig) -> dict[str, object]:
         per_device_train_batch_size=config.train_batch_size,
         per_device_eval_batch_size=config.eval_batch_size,
         num_train_epochs=config.epochs,
+        max_steps=config.max_steps,
         warmup_ratio=config.warmup_ratio,
-        eval_strategy="epoch",
-        save_strategy="epoch",
+        eval_strategy="steps" if config.max_steps > 0 else "epoch",
+        save_strategy="steps" if config.max_steps > 0 else "epoch",
+        eval_steps=config.eval_steps if config.max_steps > 0 else None,
+        save_steps=config.eval_steps if config.max_steps > 0 else 500,
         load_best_model_at_end=True,
         metric_for_best_model=f"eval_{task_spec.primary_metric}",
         greater_is_better=True,
@@ -106,6 +111,7 @@ def train_specialist(config: TrainConfig) -> dict[str, object]:
         report_to="none",
         seed=config.seed,
         data_seed=config.seed,
+        dataloader_num_workers=2,
     )
     trainer = Trainer(
         model=model,
@@ -134,4 +140,3 @@ def train_specialist(config: TrainConfig) -> dict[str, object]:
     }
     (run_dir / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     return summary
-
