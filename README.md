@@ -67,4 +67,5 @@ predicts retained merge performance across the three tested seeds, while simple 
 and uniform early-layer attenuation do not repair fragile merges. TIES is currently the strongest
 frozen baseline. Two pre-declared improvement attempts selected their explicit no-change controls;
 the next phase therefore prioritizes example-level error analysis over further hyperparameter
-search.
+search. The completed error analysis shows that compatible sentiment merges are comparatively
+stable, while pairs involving RTE produce larger and task-asymmetric losses.

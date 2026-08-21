@@ -1,0 +1,30 @@
+{
+  "purpose": "seed-42 explanatory example-level error analysis",
+  "commit": "900929c3a67f6e499c5e4f4b02a00157c34888d6",
+  "base_model": "prajjwal1/bert-mini",
+  "tasks": [
+    "sst2",
+    "imdb",
+    "mrpc",
+    "rte"
+  ],
+  "pairs": [
+    "sst2+imdb",
+    "sst2+mrpc",
+    "sst2+rte",
+    "imdb+mrpc",
+    "imdb+rte",
+    "mrpc+rte"
+  ],
+  "seed": 42,
+  "max_examples_per_task": 500,
+  "methods": [
+    "mean",
+    "ties"
+  ],
+  "ties_density": 0.2,
+  "gpu": "Tesla T4",
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "confirmatory_claim": false
+}

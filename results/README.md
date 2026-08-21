@@ -46,3 +46,10 @@ Raw logs and checkpoints belong in Kaggle outputs or another artifact store and 
 - `scope_density_ties/`: development selection on seed 42 and held-out evaluation on seeds 7 and
   123. Uniform density 0.20 was selected over all structured schedules, so scope-level density
   tuning did not improve the frozen TIES baseline.
+
+## Example-level error analysis
+
+- `example_level_error_analysis/`: seed-42 descriptive analysis of prediction transitions on real
+  validation examples. The repository retains aggregate tables, dataset audit, figure, and
+  interpretation. Raw text-level rows remain in the Kaggle artifact to avoid redistributing dataset
+  content through GitHub.
