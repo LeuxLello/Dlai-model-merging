@@ -29,3 +29,8 @@ Raw logs and checkpoints belong in Kaggle outputs or another artifact store and 
 
 - `multiseed_confirmatory/`: frozen-method results for seeds 7, 42, and 123. This is the primary
   confirmatory evidence for the relationship between task-vector alignment and merge retention.
+
+## Explanatory ablations
+
+- `layerwise_norm_ablation/`: seed-42 interventions that localize cumulative cross-layer
+  interference and show that equalizing task-vector norms does not rescue fragile RTE pairs.
