@@ -24,3 +24,8 @@ Raw logs and checkpoints belong in Kaggle outputs or another artifact store and 
 
 - `merging_pilot_seed42/`: exact compact output, figure, and a cautious interpretation of the first
   six-pair merging grid. The directory contains all 156 task-level evaluations.
+
+## Multi-seed confirmation
+
+- `multiseed_confirmatory/`: frozen-method results for seeds 7, 42, and 123. This is the primary
+  confirmatory evidence for the relationship between task-vector alignment and merge retention.
