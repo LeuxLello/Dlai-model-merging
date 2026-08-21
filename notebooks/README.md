@@ -6,5 +6,6 @@ Planned execution order:
 2. `02_train_specialists_pilot.ipynb` - meaningful seed-42 specialist training and checkpoint export.
 3. `03_pairwise_merging_pilot.ipynb` - seed-42 pairwise merging grid, diagnostics, and figures.
 4. `04_multiseed_confirmatory.ipynb` - frozen configurations on seeds 42, 7, and 123.
+5. `05_layerwise_and_norm_ablation.ipynb` - localize interference and control task-vector magnitude.
 
 The notebooks will call code from `src/dlai_merge`; they should not contain separate, drifting implementations of the algorithms.

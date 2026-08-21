@@ -1,6 +1,7 @@
 import pytest
 import torch
 
+from dlai_merge.ablation import equal_norm_mean_merge, replace_scope
 from dlai_merge.diagnostics import cosine_similarity, l2_norm, sign_agreement, subtract_states
 from dlai_merge.merging import mean_merge, task_arithmetic, ties_merge
 
@@ -38,3 +39,17 @@ def test_diagnostics():
     assert sign_agreement(state([1.0, -1.0]), state([2.0, 3.0])) == pytest.approx(0.5)
     difference = subtract_states(state([3.0, 4.0]), state([0.0, 0.0]))
     assert l2_norm(difference) == pytest.approx(5.0)
+
+
+def test_replace_scope_only_changes_selected_parameters():
+    specialist = {"a": torch.tensor([1.0]), "b": torch.tensor([2.0])}
+    merged = {"a": torch.tensor([9.0]), "b": torch.tensor([8.0])}
+    hybrid = replace_scope(specialist, merged, ["b"])
+    assert hybrid["a"].item() == 1.0
+    assert hybrid["b"].item() == 8.0
+
+
+def test_equal_norm_merge_balances_update_magnitudes():
+    base = state([0.0, 0.0])
+    merged = equal_norm_mean_merge(base, state([4.0, 0.0]), state([0.0, 2.0]))
+    assert torch.allclose(merged["weight"], torch.tensor([1.5, 1.5]))

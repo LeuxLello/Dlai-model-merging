@@ -77,6 +77,13 @@ Before running seeds 7 and 123, the confirmatory comparison was frozen to Mean, 
 with scale 0.75, and TIES with scale 1.0 and density 0.2. No per-pair retuning is allowed for the
 confirmatory runs.
 
+### Explanatory ablations after multi-seed confirmation
+
+The next analysis is deliberately narrow: a seed-42 layer-wise intervention on three representative
+pairs, plus an equal-norm control across all six pairs. These experiments test where interference
+arises and whether unequal task-vector magnitude explains fragile merges; they do not reopen the
+method hyperparameter search.
+
 ## 4. Success criteria
 
 The minimum complete project contains:
