@@ -65,5 +65,6 @@ Kaggle-specific instructions will be added to `notebooks/01_kaggle_smoke_test.ip
 The multi-seed confirmation and explanatory ablations are complete. Task-vector cosine similarity
 predicts retained merge performance across the three tested seeds, while simple norm equalization
 and uniform early-layer attenuation do not repair fragile merges. TIES is currently the strongest
-frozen baseline; further improvement work will target parameter-level conflict rather than a whole
-layer group.
+frozen baseline. Two pre-declared improvement attempts selected their explicit no-change controls;
+the next phase therefore prioritizes example-level error analysis over further hyperparameter
+search.

@@ -40,3 +40,9 @@ Raw logs and checkpoints belong in Kaggle outputs or another artifact store and 
 - `layer_adaptive_improvement/`: development selection on seed 42 followed by held-out evaluation
   on seeds 7 and 123. Both adaptive methods selected the no-adaptation factor 1.0, ruling out uniform
   early-layer attenuation as an improvement under this protocol.
+
+## Scope-density TIES improvement attempt
+
+- `scope_density_ties/`: development selection on seed 42 and held-out evaluation on seeds 7 and
+  123. Uniform density 0.20 was selected over all structured schedules, so scope-level density
+  tuning did not improve the frozen TIES baseline.

@@ -1,0 +1,2 @@
+selected_schedule,n_pair_seed_units,mean_delta,median_delta,win_rate,tie_rate,worst_delta,best_delta,bootstrap_ci_low,bootstrap_ci_high
+uniform,12,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0
