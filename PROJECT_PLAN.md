@@ -101,6 +101,14 @@ from: uniform `(0.20, 0.20, 0.20)`, early-sparse `(0.20, 0.10, 0.20)`, early-ver
 and late. Uniform is the no-change control. The selected schedule is frozen before held-out
 evaluation on seeds 7 and 123; no pair-specific schedule is allowed.
 
+### Example-level error analysis
+
+After two improvement attempts selected their no-change controls, method tuning stops. A seed-42
+explanatory analysis evaluates Mean and frozen TIES on all six pairs and stores prediction
+transitions on real validation examples. This phase is qualitative and descriptive: it identifies
+competence preservation, merge-induced loss, merge recovery, and shared failure without making a
+new confirmatory performance claim.
+
 ## 4. Success criteria
 
 The minimum complete project contains:
