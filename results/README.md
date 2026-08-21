@@ -24,3 +24,32 @@ Raw logs and checkpoints belong in Kaggle outputs or another artifact store and 
 
 - `merging_pilot_seed42/`: exact compact output, figure, and a cautious interpretation of the first
   six-pair merging grid. The directory contains all 156 task-level evaluations.
+
+## Multi-seed confirmation
+
+- `multiseed_confirmatory/`: frozen-method results for seeds 7, 42, and 123. This is the primary
+  confirmatory evidence for the relationship between task-vector alignment and merge retention.
+
+## Explanatory ablations
+
+- `layerwise_norm_ablation/`: seed-42 interventions that localize cumulative cross-layer
+  interference and show that equalizing task-vector norms does not rescue fragile RTE pairs.
+
+## Layer-adaptive improvement attempt
+
+- `layer_adaptive_improvement/`: development selection on seed 42 followed by held-out evaluation
+  on seeds 7 and 123. Both adaptive methods selected the no-adaptation factor 1.0, ruling out uniform
+  early-layer attenuation as an improvement under this protocol.
+
+## Scope-density TIES improvement attempt
+
+- `scope_density_ties/`: development selection on seed 42 and held-out evaluation on seeds 7 and
+  123. Uniform density 0.20 was selected over all structured schedules, so scope-level density
+  tuning did not improve the frozen TIES baseline.
+
+## Example-level error analysis
+
+- `example_level_error_analysis/`: seed-42 descriptive analysis of prediction transitions on real
+  validation examples. The repository retains aggregate tables, dataset audit, figure, and
+  interpretation. Raw text-level rows remain in the Kaggle artifact to avoid redistributing dataset
+  content through GitHub.

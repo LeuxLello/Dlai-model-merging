@@ -1,0 +1,3 @@
+adaptive_method,baseline_method,selected_factor,n_pair_seed_units,mean_delta,median_delta,win_rate,tie_rate,worst_delta,best_delta,bootstrap_ci_low,bootstrap_ci_high
+adaptive_mean,mean,1.0,12,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+adaptive_ties,ties,1.0,12,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0

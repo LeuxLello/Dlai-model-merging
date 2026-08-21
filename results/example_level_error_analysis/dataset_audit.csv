@@ -1,0 +1,5 @@
+task,hf_dataset,config,evaluation_split,available_split_rows,analyzed_rows,text_columns,label_counts
+sst2,glue,sst2,validation,872,500,sentence,"{""0"": 239, ""1"": 261}"
+imdb,imdb,,test,25000,500,text,"{""0"": 254, ""1"": 246}"
+mrpc,glue,mrpc,validation,408,408,sentence1+sentence2,"{""0"": 129, ""1"": 279}"
+rte,glue,rte,validation,277,277,sentence1+sentence2,"{""0"": 146, ""1"": 131}"

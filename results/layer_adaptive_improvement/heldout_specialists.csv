@@ -1,0 +1,9 @@
+seed,task,primary_metric,score
+7,sst2,accuracy,0.768348623853211
+7,imdb,accuracy,0.787
+7,mrpc,f1,0.8414442700156985
+7,rte,accuracy,0.5956678700361011
+123,sst2,accuracy,0.7660550458715596
+123,imdb,accuracy,0.7795
+123,mrpc,f1,0.832520325203252
+123,rte,accuracy,0.6064981949458483

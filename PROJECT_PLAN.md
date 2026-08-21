@@ -77,6 +77,38 @@ Before running seeds 7 and 123, the confirmatory comparison was frozen to Mean, 
 with scale 0.75, and TIES with scale 1.0 and density 0.2. No per-pair retuning is allowed for the
 confirmatory runs.
 
+### Explanatory ablations after multi-seed confirmation
+
+The next analysis is deliberately narrow: a seed-42 layer-wise intervention on three representative
+pairs, plus an equal-norm control across all six pairs. These experiments test where interference
+arises and whether unequal task-vector magnitude explains fragile merges; they do not reopen the
+method hyperparameter search.
+
+### Layer-adaptive improvement protocol
+
+Seed 42 is used as development data to choose one global early-layer update factor from
+`{0.25, 0.50, 0.75, 1.00}` independently for adaptive Mean and adaptive TIES. Embedding and late-layer
+factors remain fixed at 1.0. The selected factors are then frozen and evaluated on seeds 7 and 123.
+The 1.0 candidate is the explicit no-adaptation control, so the selection cannot force an apparent
+improvement. The primary improvement claim is based on the two held-out seeds, not on seed 42.
+
+### Scope-density TIES improvement protocol
+
+After uniform early-layer attenuation failed, the next intervention changes TIES trimming density
+rather than scaling a whole layer update. Seed 42 selects one global schedule across all six pairs
+from: uniform `(0.20, 0.20, 0.20)`, early-sparse `(0.20, 0.10, 0.20)`, early-very-sparse
+`(0.20, 0.05, 0.20)`, and depth-progressive `(0.10, 0.10, 0.30)`, ordered as embeddings, early,
+and late. Uniform is the no-change control. The selected schedule is frozen before held-out
+evaluation on seeds 7 and 123; no pair-specific schedule is allowed.
+
+### Example-level error analysis
+
+After two improvement attempts selected their no-change controls, method tuning stops. A seed-42
+explanatory analysis evaluates Mean and frozen TIES on all six pairs and stores prediction
+transitions on real validation examples. This phase is qualitative and descriptive: it identifies
+competence preservation, merge-induced loss, merge recovery, and shared failure without making a
+new confirmatory performance claim.
+
 ## 4. Success criteria
 
 The minimum complete project contains:

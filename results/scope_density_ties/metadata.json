@@ -1,0 +1,44 @@
+{
+  "purpose": "scope-density TIES development and held-out confirmation",
+  "commit": "61d5c932bbf0698e2522c37a04d18782a81d67c7",
+  "base_model": "prajjwal1/bert-mini",
+  "tasks": [
+    "sst2",
+    "imdb",
+    "mrpc",
+    "rte"
+  ],
+  "development_seed": 42,
+  "heldout_seeds": [
+    7,
+    123
+  ],
+  "candidate_schedules": {
+    "uniform": {
+      "embeddings": 0.2,
+      "early": 0.2,
+      "late": 0.2
+    },
+    "early_sparse": {
+      "embeddings": 0.2,
+      "early": 0.1,
+      "late": 0.2
+    },
+    "early_very_sparse": {
+      "embeddings": 0.2,
+      "early": 0.05,
+      "late": 0.2
+    },
+    "depth_progressive": {
+      "embeddings": 0.1,
+      "early": 0.1,
+      "late": 0.3
+    }
+  },
+  "selected_schedule": "uniform",
+  "gpu": "Tesla T4",
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "primary_claim_uses_heldout_only": true,
+  "bootstrap_resamples": 10000
+}

@@ -1,0 +1,29 @@
+{
+  "purpose": "confirmatory multi-seed run with frozen configurations",
+  "seeds": [
+    42,
+    7,
+    123
+  ],
+  "tasks": [
+    "sst2",
+    "imdb",
+    "mrpc",
+    "rte"
+  ],
+  "frozen_methods": {
+    "mean": {
+      "scale": 1.0
+    },
+    "task_arithmetic": {
+      "scale": 0.75
+    },
+    "ties": {
+      "scale": 1.0,
+      "density": 0.2
+    }
+  },
+  "gpu": "Tesla T4",
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128"
+}

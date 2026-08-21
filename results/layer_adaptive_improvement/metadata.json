@@ -1,0 +1,31 @@
+{
+  "purpose": "development-selected layer-adaptive merging with held-out confirmation",
+  "commit": "86a6c41b68ee92c0a6c00ca57778b7508d8ca6da",
+  "base_model": "prajjwal1/bert-mini",
+  "tasks": [
+    "sst2",
+    "imdb",
+    "mrpc",
+    "rte"
+  ],
+  "development_seed": 42,
+  "heldout_seeds": [
+    7,
+    123
+  ],
+  "factor_candidates": [
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "selected_factors": {
+    "adaptive_mean": 1.0,
+    "adaptive_ties": 1.0
+  },
+  "gpu": "Tesla T4",
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "primary_claim_uses_heldout_only": true,
+  "bootstrap_resamples": 10000
+}
