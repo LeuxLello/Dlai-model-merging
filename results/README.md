@@ -34,3 +34,9 @@ Raw logs and checkpoints belong in Kaggle outputs or another artifact store and 
 
 - `layerwise_norm_ablation/`: seed-42 interventions that localize cumulative cross-layer
   interference and show that equalizing task-vector norms does not rescue fragile RTE pairs.
+
+## Layer-adaptive improvement attempt
+
+- `layer_adaptive_improvement/`: development selection on seed 42 followed by held-out evaluation
+  on seeds 7 and 123. Both adaptive methods selected the no-adaptation factor 1.0, ruling out uniform
+  early-layer attenuation as an improvement under this protocol.
