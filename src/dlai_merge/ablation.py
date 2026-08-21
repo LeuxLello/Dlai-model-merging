@@ -77,3 +77,38 @@ def equal_norm_mean_merge(
         for key in base
     }
 
+
+def scale_merged_update_by_scope(
+    base: StateDict,
+    merged: StateDict,
+    scope_factors: Mapping[str, tuple[Iterable[str], float]],
+) -> dict[str, torch.Tensor]:
+    """Scale a merged update using disjoint named parameter scopes.
+
+    Every parameter must belong to exactly one scope. A factor of 1 keeps the original merged
+    update, while 0 restores the pretrained base value for that scope.
+    """
+    if set(base) != set(merged):
+        raise ValueError("Base and merged states must have identical keys.")
+    factors_by_key: dict[str, float] = {}
+    for scope_name, (keys, factor) in scope_factors.items():
+        if factor < 0:
+            raise ValueError(f"Scope factor for {scope_name!r} must be non-negative.")
+        for key in keys:
+            if key in factors_by_key:
+                raise ValueError(f"Parameter {key!r} belongs to multiple scopes.")
+            factors_by_key[key] = float(factor)
+    missing = set(base) - set(factors_by_key)
+    unknown = set(factors_by_key) - set(base)
+    if missing or unknown:
+        raise ValueError(
+            f"Scopes must partition the state exactly; missing={len(missing)}, unknown={len(unknown)}"
+        )
+    return {
+        key: (
+            base[key].detach().float()
+            + factors_by_key[key]
+            * (merged[key].detach().float() - base[key].detach().float())
+        ).to(base[key].dtype)
+        for key in base
+    }

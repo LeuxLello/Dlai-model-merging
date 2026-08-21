@@ -84,6 +84,14 @@ pairs, plus an equal-norm control across all six pairs. These experiments test w
 arises and whether unequal task-vector magnitude explains fragile merges; they do not reopen the
 method hyperparameter search.
 
+### Layer-adaptive improvement protocol
+
+Seed 42 is used as development data to choose one global early-layer update factor from
+`{0.25, 0.50, 0.75, 1.00}` independently for adaptive Mean and adaptive TIES. Embedding and late-layer
+factors remain fixed at 1.0. The selected factors are then frozen and evaluated on seeds 7 and 123.
+The 1.0 candidate is the explicit no-adaptation control, so the selection cannot force an apparent
+improvement. The primary improvement claim is based on the two held-out seeds, not on seed 42.
+
 ## 4. Success criteria
 
 The minimum complete project contains:
