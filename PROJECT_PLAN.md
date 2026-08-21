@@ -92,6 +92,15 @@ factors remain fixed at 1.0. The selected factors are then frozen and evaluated 
 The 1.0 candidate is the explicit no-adaptation control, so the selection cannot force an apparent
 improvement. The primary improvement claim is based on the two held-out seeds, not on seed 42.
 
+### Scope-density TIES improvement protocol
+
+After uniform early-layer attenuation failed, the next intervention changes TIES trimming density
+rather than scaling a whole layer update. Seed 42 selects one global schedule across all six pairs
+from: uniform `(0.20, 0.20, 0.20)`, early-sparse `(0.20, 0.10, 0.20)`, early-very-sparse
+`(0.20, 0.05, 0.20)`, and depth-progressive `(0.10, 0.10, 0.30)`, ordered as embeddings, early,
+and late. Uniform is the no-change control. The selected schedule is frozen before held-out
+evaluation on seeds 7 and 123; no pair-specific schedule is allowed.
+
 ## 4. Success criteria
 
 The minimum complete project contains:

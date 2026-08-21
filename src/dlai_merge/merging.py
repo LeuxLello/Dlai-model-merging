@@ -6,7 +6,7 @@ return new tensors and never mutate their inputs, which makes them safe to use i
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Iterable, Mapping, Sequence
 
 import torch
 
@@ -102,3 +102,35 @@ def ties_merge(
 
     return _apply_update(base, merged_update, scale=scale)
 
+
+def ties_merge_by_scope(
+    base: StateDict,
+    specialists: Sequence[StateDict],
+    scope_densities: Mapping[str, tuple[Iterable[str], float]],
+    scale: float = 1.0,
+) -> dict[str, torch.Tensor]:
+    """Run TIES with a pre-declared density for each disjoint parameter scope."""
+    vectors = task_vectors(base, specialists)
+    density_by_key: dict[str, float] = {}
+    for scope_name, (keys, density) in scope_densities.items():
+        if not 0.0 < density <= 1.0:
+            raise ValueError(f"Density for scope {scope_name!r} must lie in (0, 1].")
+        for key in keys:
+            if key in density_by_key:
+                raise ValueError(f"Parameter {key!r} belongs to multiple scopes.")
+            density_by_key[key] = float(density)
+    missing = set(base) - set(density_by_key)
+    unknown = set(density_by_key) - set(base)
+    if missing or unknown:
+        raise ValueError(
+            f"Scopes must partition the state exactly; missing={len(missing)}, unknown={len(unknown)}"
+        )
+
+    merged_update: dict[str, torch.Tensor] = {}
+    for key in base:
+        stacked = torch.stack([vector[key].float() for vector in vectors])
+        retained = stacked * _topk_mask(stacked, density_by_key[key])
+        elected_sign = retained.sum(dim=0).sign()
+        agrees = (retained.sign() == elected_sign.unsqueeze(0)) & (retained != 0)
+        merged_update[key] = (retained * agrees).sum(dim=0) / agrees.sum(dim=0).clamp_min(1)
+    return _apply_update(base, merged_update, scale=scale)

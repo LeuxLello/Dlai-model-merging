@@ -3,7 +3,7 @@ import torch
 
 from dlai_merge.ablation import equal_norm_mean_merge, replace_scope, scale_merged_update_by_scope
 from dlai_merge.diagnostics import cosine_similarity, l2_norm, sign_agreement, subtract_states
-from dlai_merge.merging import mean_merge, task_arithmetic, ties_merge
+from dlai_merge.merging import mean_merge, task_arithmetic, ties_merge, ties_merge_by_scope
 
 
 def state(values):
@@ -65,3 +65,16 @@ def test_scope_scaling_applies_disjoint_factors():
     )
     assert scaled["early"].item() == 3.0
     assert scaled["late"].item() == 3.0
+
+
+def test_scope_ties_matches_uniform_ties():
+    base = {"early": torch.zeros(4), "late": torch.zeros(4)}
+    left = {"early": torch.tensor([4.0, -3.0, 0.2, 0.1]), "late": torch.tensor([1.0, 2.0, -4.0, 0.1])}
+    right = {"early": torch.tensor([3.0, 2.0, -0.3, 0.1]), "late": torch.tensor([2.0, -1.0, -3.0, 0.2])}
+    expected = ties_merge(base, [left, right], density=0.5)
+    actual = ties_merge_by_scope(
+        base,
+        [left, right],
+        {"early": (["early"], 0.5), "late": (["late"], 0.5)},
+    )
+    assert all(torch.equal(actual[key], expected[key]) for key in base)
