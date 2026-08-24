@@ -47,6 +47,8 @@ src/dlai_merge reusable implementation
 tests/         fast unit tests for merging algorithms
 results/       lightweight tables and final figures
 report/        official report and AI-use statement
+docs/          study guide, method-to-code map, and project audit
+references/    authoritative reading list and BibTeX bibliography
 ```
 
 ## Environment
@@ -62,10 +64,19 @@ Kaggle-specific instructions will be added to `notebooks/01_kaggle_smoke_test.ip
 
 ## Status
 
-The multi-seed confirmation and explanatory ablations are complete. Task-vector cosine similarity
-predicts retained merge performance across the three tested seeds, while simple norm equalization
+The initial multi-seed confirmation and explanatory ablations are complete. Task-vector cosine similarity
+is positively associated with retained merge performance across the three tested seeds, while simple norm equalization
 and uniform early-layer attenuation do not repair fragile merges. TIES is currently the strongest
-frozen baseline. Two pre-declared improvement attempts selected their explicit no-change controls;
-the next phase therefore prioritizes example-level error analysis over further hyperparameter
-search. The completed error analysis shows that compatible sentiment merges are comparatively
-stable, while pairs involving RTE produce larger and task-asymmetric losses.
+frozen baseline among the tested methods. The existing implementation uses tensor-wise rather than
+official global trimming, so a corrective global-TIES comparison is required before final claims.
+Two pre-declared improvement attempts selected their explicit no-change controls. The completed
+error analysis shows that compatible sentiment merges are comparatively stable, while pairs involving
+RTE produce larger and task-asymmetric losses.
+
+## Start here
+
+- [`docs/STUDY_GUIDE.md`](docs/STUDY_GUIDE.md): plain-language walkthrough from datasets to conclusions.
+- [`references/README.md`](references/README.md): papers, exact sections, and official data/model sources.
+- [`docs/METHOD_TO_CODE.md`](docs/METHOD_TO_CODE.md): formula-to-code-to-notebook traceability.
+- [`docs/PROJECT_AUDIT.md`](docs/PROJECT_AUDIT.md): guideline compliance, limitations, and final roadmap.
+- [`AI_USAGE.md`](AI_USAGE.md): honest working record for the mandatory disclosure.
