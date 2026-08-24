@@ -36,7 +36,7 @@ Un solo esperimento correttivo e mirato, prima del report:
 
 Questo esperimento è più utile al voto di nuove varianti speculative, perché chiude una discrepanza rispetto alla fonte primaria e rende la metodologia difendibile.
 
-L'implementazione e il notebook sono ora presenti; manca soltanto il run Kaggle e l'archiviazione del bundle prodotto.
+L'implementazione, il run Kaggle e il bundle sono completi. Global TIES non ha migliorato la retention media di tensor-wise TIES (`0.9307` contro `0.9380`); l'intervallo bootstrap del delta include appena zero. Il protocollo è ora chiuso e non autorizza ulteriore tuning.
 
 ## Interfaccia ludica
 

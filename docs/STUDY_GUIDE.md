@@ -59,7 +59,7 @@ TIES prova a ridurre l'interferenza tra task vector:
 2. **Elect sign:** per ogni coordinata sceglie il segno dominante.
 3. **Disjoint merge:** media solo gli aggiornamenti concordi con quel segno.
 
-Nota di audit: l'implementazione usata nei notebook 01-08 applica il top-k separatamente a ogni tensore. L'implementazione ufficiale TIES appiattisce invece l'intero task vector e applica globalmente il top-k. Nei documenti e nel report i risultati esistenti vanno quindi chiamati **tensor-wise TIES**. Prima del report finale è raccomandato un confronto correttivo con **global TIES**.
+Nota di audit: l'implementazione usata nei notebook 01-08 applica il top-k separatamente a ogni tensore. L'implementazione ufficiale TIES appiattisce invece l'intero task vector e applica globalmente il top-k. Il notebook 09 ha completato il confronto correttivo; i risultati precedenti restano correttamente denominati **tensor-wise TIES**.
 
 ## 5. Cosa misuriamo
 
@@ -91,6 +91,7 @@ Retention `1.0` significa che il modello fuso conserva il 100% del punteggio del
 | 06 | prova attenuazione dei primi layer, scelta su 42 e test su 7/123 | tentativo di miglioramento; controllo vince |
 | 07 | prova densità TIES diverse per scope, stesso split sviluppo/test | tentativo di miglioramento; controllo vince |
 | 08 | osserva esempi reali persi, preservati o recuperati | analisi qualitativa |
+| 09 | confronta tensor-wise e global TIES con subset fisso | conferma correttiva finale |
 
 ## 7. Cosa abbiamo scoperto finora
 
@@ -99,6 +100,7 @@ Retention `1.0` significa che il modello fuso conserva il 100% del punteggio del
 - L'interferenza non è spiegata soltanto dalla norma degli aggiornamenti ed è distribuita tra i layer.
 - Le due estensioni proposte non hanno superato i controlli su seed tenuti separati. È un risultato negativo valido: evita una falsa dichiarazione di miglioramento.
 - L'analisi degli esempi mostra che coppie affini di sentiment sono più stabili, mentre RTE è più fragile e asimmetrico.
+- Con subset identici tra seed, il coseno resta positivamente associato alla retention. Global TIES non migliora la media della variante tensor-wise: `0.9307` contro `0.9380`; il delta medio è `-0.00723` con intervallo bootstrap `[-0.01489, 0.00068]`. Global TIES evita però il caso peggiore più severo di tensor-wise TIES.
 
 ## 8. Percorso di lettura minimo
 

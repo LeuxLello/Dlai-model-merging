@@ -81,4 +81,7 @@ RTE produce larger and task-asymmetric losses.
 - [`docs/PROJECT_AUDIT.md`](docs/PROJECT_AUDIT.md): guideline compliance, limitations, and final roadmap.
 - [`AI_USAGE.md`](AI_USAGE.md): honest working record for the mandatory disclosure.
 
-The implementation and `notebooks/09_global_ties_corrective.ipynb` are ready; the final Kaggle run is pending.
+The final corrective run is complete. With fixed data subsets, tensor-wise TIES achieved mean
+retention 0.9380 versus 0.9307 for official global TIES. The paired mean difference (global minus
+tensor-wise) was -0.00723 with a bootstrap interval of [-0.01489, 0.00068]. The experimental phase
+is closed; see `results/global_ties_corrective/README.md` for the frozen interpretation.

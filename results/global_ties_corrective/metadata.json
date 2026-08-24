@@ -1,0 +1,26 @@
+{
+  "purpose": "final corrective global-TIES comparison",
+  "commit": "eeb2d72a550459f11c4afaac49701d70e0711d8a",
+  "base_model": "prajjwal1/bert-mini",
+  "tasks": [
+    "sst2",
+    "imdb",
+    "mrpc",
+    "rte"
+  ],
+  "training_seeds": [
+    7,
+    42,
+    123
+  ],
+  "subset_seed": 2026,
+  "max_steps": 400,
+  "task_arithmetic_scale": 0.75,
+  "ties_density": 0.2,
+  "ties_scale": 1.0,
+  "gpu": "Tesla T4",
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "confirmatory_no_further_tuning": true,
+  "bootstrap_resamples": 10000
+}
