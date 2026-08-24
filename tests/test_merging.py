@@ -43,10 +43,12 @@ def test_invalid_density_fails_loudly():
 def test_global_ties_trims_across_tensor_boundaries():
     base = {"small": torch.zeros(1), "large": torch.zeros(3)}
     left = {"small": torch.tensor([2.0]), "large": torch.tensor([10.0, 1.0, 0.5])}
-    right = {"small": torch.tensor([-2.0]), "large": torch.tensor([8.0, 0.8, 0.4])}
+    right = {"small": torch.tensor([1.5]), "large": torch.tensor([8.0, 0.8, 0.4])}
     merged = global_ties_merge(base, [left, right], density=0.25)
     assert merged["small"].item() == 0.0
     assert torch.allclose(merged["large"], torch.tensor([9.0, 0.0, 0.0]))
+    tensorwise = ties_merge(base, [left, right], density=0.25)
+    assert tensorwise["small"].item() == 1.75
 
 
 def test_global_ties_preserves_shapes_and_dtypes():
