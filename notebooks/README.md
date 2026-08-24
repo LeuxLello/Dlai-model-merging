@@ -10,5 +10,6 @@ Planned execution order:
 6. `06_layer_adaptive_improvement.ipynb` - select an early-layer attenuation on seed 42 and test it on held-out seeds 7 and 123.
 7. `07_scope_density_ties.ipynb` - select a structured TIES density schedule and test it on held-out seeds.
 8. `08_example_level_error_analysis.ipynb` - inspect prediction transitions on real examples for all six pairs.
+9. `09_global_ties_corrective.ipynb` - final corrective comparison using fixed data subsets and the official global TIES trimming scope.
 
 The notebooks will call code from `src/dlai_merge`; they should not contain separate, drifting implementations of the algorithms.

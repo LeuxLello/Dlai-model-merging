@@ -6,7 +6,7 @@
 | Mean degli aggiornamenti | weight averaging / baseline | `mean_merge` | 03-08 | baseline |
 | `theta_0 + lambda sum(tau_t)` | Task Arithmetic, Sec. 2 e 4 | `task_arithmetic` | 03-06 | replica diretta |
 | Trim/elect/disjoint mean | TIES, Sec. 4 | `ties_merge` | 03-08 | logica diretta, trim tensor-wise |
-| Top-k globale TIES | TIES codice ufficiale | non ancora implementato | prossimo notebook | correzione necessaria |
+| Top-k globale TIES | TIES codice ufficiale | `global_ties_merge` | notebook 09 | implementato, run Kaggle da eseguire |
 | Norma L2, coseno, accordo segno | geometria standard + motivazione TIES | `diagnostics.py` | 03-05 | diagnostica del progetto |
 | Retention score | normalizzazione del progetto | notebook/evaluation | 03-08 | metrica del progetto |
 | Scope embeddings/early/late | architettura BERT-mini | `bert_mini_scopes` | 05-07 | design del progetto |

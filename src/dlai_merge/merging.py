@@ -103,6 +103,43 @@ def ties_merge(
     return _apply_update(base, merged_update, scale=scale)
 
 
+def global_ties_merge(
+    base: StateDict,
+    specialists: Sequence[StateDict],
+    density: float = 0.2,
+    scale: float = 1.0,
+) -> dict[str, torch.Tensor]:
+    """Apply TIES after flattening each complete task vector.
+
+    This follows the authors' reference implementation: trimming is global across all compatible
+    encoder parameters, not repeated independently for every state-dict tensor.
+    """
+    vectors = task_vectors(base, specialists)
+    keys = tuple(base)
+    shapes = {key: base[key].shape for key in keys}
+    sizes = {key: base[key].numel() for key in keys}
+    stacked = torch.stack(
+        [torch.cat([vector[key].float().reshape(-1) for key in keys]) for vector in vectors]
+    )
+    retained = stacked * _topk_mask(stacked, density)
+    elected_sign = retained.sum(dim=0).sign()
+    majority_sign = elected_sign.sum().sign()
+    if majority_sign != 0:
+        elected_sign = torch.where(
+            elected_sign == 0, majority_sign.expand_as(elected_sign), elected_sign
+        )
+    agrees = (retained.sign() == elected_sign.unsqueeze(0)) & (retained != 0)
+    flat_update = (retained * agrees).sum(dim=0) / agrees.sum(dim=0).clamp_min(1)
+
+    merged_update: dict[str, torch.Tensor] = {}
+    offset = 0
+    for key in keys:
+        next_offset = offset + sizes[key]
+        merged_update[key] = flat_update[offset:next_offset].reshape(shapes[key])
+        offset = next_offset
+    return _apply_update(base, merged_update, scale=scale)
+
+
 def ties_merge_by_scope(
     base: StateDict,
     specialists: Sequence[StateDict],

@@ -3,7 +3,13 @@ import torch
 
 from dlai_merge.ablation import equal_norm_mean_merge, replace_scope, scale_merged_update_by_scope
 from dlai_merge.diagnostics import cosine_similarity, l2_norm, sign_agreement, subtract_states
-from dlai_merge.merging import mean_merge, task_arithmetic, ties_merge, ties_merge_by_scope
+from dlai_merge.merging import (
+    global_ties_merge,
+    mean_merge,
+    task_arithmetic,
+    ties_merge,
+    ties_merge_by_scope,
+)
 
 
 def state(values):
@@ -32,6 +38,25 @@ def test_ties_elects_dominant_sign_and_discards_conflict():
 def test_invalid_density_fails_loudly():
     with pytest.raises(ValueError):
         ties_merge(state([0.0]), [state([1.0])], density=0.0)
+
+
+def test_global_ties_trims_across_tensor_boundaries():
+    base = {"small": torch.zeros(1), "large": torch.zeros(3)}
+    left = {"small": torch.tensor([2.0]), "large": torch.tensor([10.0, 1.0, 0.5])}
+    right = {"small": torch.tensor([-2.0]), "large": torch.tensor([8.0, 0.8, 0.4])}
+    merged = global_ties_merge(base, [left, right], density=0.25)
+    assert merged["small"].item() == 0.0
+    assert torch.allclose(merged["large"], torch.tensor([9.0, 0.0, 0.0]))
+
+
+def test_global_ties_preserves_shapes_and_dtypes():
+    base = {"matrix": torch.zeros((2, 2), dtype=torch.float16), "bias": torch.zeros(2)}
+    left = {"matrix": torch.tensor([[4.0, 3.0], [2.0, 1.0]]), "bias": torch.tensor([0.5, -0.5])}
+    right = {"matrix": torch.tensor([[3.0, 2.0], [1.0, -1.0]]), "bias": torch.tensor([0.4, -0.4])}
+    merged = global_ties_merge(base, [left, right], density=0.5)
+    assert merged["matrix"].shape == base["matrix"].shape
+    assert merged["matrix"].dtype == base["matrix"].dtype
+    assert merged["bias"].shape == base["bias"].shape
 
 
 def test_diagnostics():

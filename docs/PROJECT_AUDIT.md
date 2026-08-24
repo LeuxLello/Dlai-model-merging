@@ -30,11 +30,13 @@ Un solo esperimento correttivo e mirato, prima del report:
 
 1. implementare global TIES conforme al codice ufficiale;
 2. aggiungere test che confrontino flattening, densità e ricostruzione dello state dict;
-3. creare notebook 09 con subset fisso e training seed 7/42/123;
+3. eseguire notebook 09 con subset fisso e training seed 7/42/123;
 4. confrontare Mean, Task Arithmetic, tensor-wise TIES e global TIES sulle stesse 18 unità pair-seed;
 5. congelare la conclusione; nessuna ulteriore ricerca di iperparametri dopo aver visto il risultato.
 
 Questo esperimento è più utile al voto di nuove varianti speculative, perché chiude una discrepanza rispetto alla fonte primaria e rende la metodologia difendibile.
+
+L'implementazione e il notebook sono ora presenti; manca soltanto il run Kaggle e l'archiviazione del bundle prodotto.
 
 ## Interfaccia ludica
 

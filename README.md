@@ -80,3 +80,5 @@ RTE produce larger and task-asymmetric losses.
 - [`docs/METHOD_TO_CODE.md`](docs/METHOD_TO_CODE.md): formula-to-code-to-notebook traceability.
 - [`docs/PROJECT_AUDIT.md`](docs/PROJECT_AUDIT.md): guideline compliance, limitations, and final roadmap.
 - [`AI_USAGE.md`](AI_USAGE.md): honest working record for the mandatory disclosure.
+
+The implementation and `notebooks/09_global_ties_corrective.ipynb` are ready; the final Kaggle run is pending.

@@ -39,6 +39,7 @@ class TaskEvaluator:
         max_eval_samples: int | None = 2000,
         eval_batch_size: int = 64,
         seed: int = 42,
+        subset_seed: int | None = None,
         output_root: str = "/tmp/dlai-merge-eval",
     ) -> None:
         self.task_name = task_name
@@ -50,7 +51,7 @@ class TaskEvaluator:
             max_length=max_length,
             max_train_samples=1,
             max_eval_samples=max_eval_samples,
-            seed=seed,
+            seed=seed if subset_seed is None else subset_seed,
         )
         self.model = AutoModelForSequenceClassification.from_pretrained(base_model, num_labels=2)
         self.model.load_state_dict(head_state, strict=False)

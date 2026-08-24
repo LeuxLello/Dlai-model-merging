@@ -27,6 +27,7 @@ class TrainConfig:
     base_model: str = "prajjwal1/bert-mini"
     output_root: str = "artifacts/specialists"
     seed: int = 42
+    subset_seed: int | None = None
     max_length: int = 128
     max_train_samples: int | None = None
     max_eval_samples: int | None = None
@@ -85,7 +86,7 @@ def train_specialist(config: TrainConfig) -> dict[str, object]:
         max_length=config.max_length,
         max_train_samples=config.max_train_samples,
         max_eval_samples=config.max_eval_samples,
-        seed=config.seed,
+        seed=config.seed if config.subset_seed is None else config.subset_seed,
     )
     model = AutoModelForSequenceClassification.from_pretrained(config.base_model, num_labels=2)
     use_fp16 = config.fp16 and torch.cuda.is_available()
