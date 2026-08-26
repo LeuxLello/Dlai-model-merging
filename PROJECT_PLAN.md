@@ -109,6 +109,15 @@ transitions on real validation examples. This phase is qualitative and descripti
 competence preservation, merge-induced loss, merge recovery, and shared failure without making a
 new confirmatory performance claim.
 
+### Post-closure generalization extension
+
+Notebook 10 is a separately labelled extension rather than further tuning of the closed four-task
+study. It adds CoLA and BoolQ to create 15 task pairs, evaluates the frozen methods at 400 steps on
+training seeds 7, 42, and 123 with subset seed 2026, and uses the resulting 45 pair-seed units for
+task-directional diagnostics. A seed-42 ablation compares 400 with 1200 optimizer steps on identical
+subsets. DARE, RegMean, and a new conflict-aware merge remain optional and are not selected using
+the extension results.
+
 ## 4. Success criteria
 
 The minimum complete project contains:

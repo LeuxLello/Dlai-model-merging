@@ -43,3 +43,23 @@ def sign_agreement(left: StateDict, right: StateDict, eps: float = 0.0) -> float
     if not active.any():
         return float("nan")
     return float((a[active].sign() == b[active].sign()).float().mean())
+
+
+def directional_projection(source: StateDict, incoming: StateDict, eps: float = 1e-12) -> float:
+    """Project an incoming task vector onto a source task vector, normalized by source energy.
+
+    Unlike cosine similarity, this diagnostic is directional: swapping ``source`` and ``incoming``
+    changes the denominator and therefore captures update-scale asymmetry.
+    """
+    a, b = flatten_state(source), flatten_state(incoming)
+    if a.shape != b.shape:
+        raise ValueError("States must contain the same number of scalar parameters.")
+    return float(torch.dot(a, b) / a.square().sum().clamp_min(eps))
+
+
+def incoming_norm_ratio(source: StateDict, incoming: StateDict, eps: float = 1e-12) -> float:
+    """Return the incoming task-vector norm divided by the source task-vector norm."""
+    a, b = flatten_state(source), flatten_state(incoming)
+    if a.shape != b.shape:
+        raise ValueError("States must contain the same number of scalar parameters.")
+    return float(b.norm() / a.norm().clamp_min(eps))

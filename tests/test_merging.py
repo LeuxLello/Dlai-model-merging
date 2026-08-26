@@ -2,7 +2,15 @@ import pytest
 import torch
 
 from dlai_merge.ablation import equal_norm_mean_merge, replace_scope, scale_merged_update_by_scope
-from dlai_merge.diagnostics import cosine_similarity, l2_norm, sign_agreement, subtract_states
+from dlai_merge.data import get_task
+from dlai_merge.diagnostics import (
+    cosine_similarity,
+    directional_projection,
+    incoming_norm_ratio,
+    l2_norm,
+    sign_agreement,
+    subtract_states,
+)
 from dlai_merge.merging import (
     global_ties_merge,
     mean_merge,
@@ -66,6 +74,19 @@ def test_diagnostics():
     assert sign_agreement(state([1.0, -1.0]), state([2.0, 3.0])) == pytest.approx(0.5)
     difference = subtract_states(state([3.0, 4.0]), state([0.0, 0.0]))
     assert l2_norm(difference) == pytest.approx(5.0)
+
+
+def test_directional_diagnostics_capture_scale_asymmetry():
+    small = state([1.0, 0.0])
+    large = state([2.0, 0.0])
+    assert directional_projection(small, large) == pytest.approx(2.0)
+    assert directional_projection(large, small) == pytest.approx(0.5)
+    assert incoming_norm_ratio(small, large) == pytest.approx(2.0)
+
+
+def test_extended_task_registry():
+    assert get_task("cola").primary_metric == "matthews_correlation"
+    assert get_task("boolq").text_columns == ("question", "passage")
 
 
 def test_replace_scope_only_changes_selected_parameters():

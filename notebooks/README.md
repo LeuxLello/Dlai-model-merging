@@ -11,5 +11,6 @@ Planned execution order:
 7. `07_scope_density_ties.ipynb` - select a structured TIES density schedule and test it on held-out seeds.
 8. `08_example_level_error_analysis.ipynb` - inspect prediction transitions on real examples for all six pairs.
 9. `09_global_ties_corrective.ipynb` - final corrective comparison using fixed data subsets and the official global TIES trimming scope.
+10. `10_extended_tasks_budget_directionality.ipynb` - extend to six task families, compare 400 versus 1200 training steps, and test directional interference diagnostics.
 
 The notebooks will call code from `src/dlai_merge`; they should not contain separate, drifting implementations of the algorithms.

@@ -27,6 +27,12 @@ TASKS: dict[str, TaskSpec] = {
         "mrpc", "glue", "mrpc", ("sentence1", "sentence2"), primary_metric="f1"
     ),
     "rte": TaskSpec("rte", "glue", "rte", ("sentence1", "sentence2")),
+    "cola": TaskSpec(
+        "cola", "glue", "cola", ("sentence",), primary_metric="matthews_correlation"
+    ),
+    "boolq": TaskSpec(
+        "boolq", "super_glue", "boolq", ("question", "passage")
+    ),
 }
 
 
@@ -67,4 +73,3 @@ def load_task_data(
         validation=validation.map(tokenize, batched=True, remove_columns=remove_columns),
     )
     return encoded, spec
-

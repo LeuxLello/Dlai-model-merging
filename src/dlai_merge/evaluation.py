@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, matthews_corrcoef
 from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer,
@@ -24,6 +24,7 @@ def classification_metrics(prediction) -> dict[str, float]:
     return {
         "accuracy": float(accuracy_score(labels, predictions)),
         "f1": float(f1_score(labels, predictions, zero_division=0)),
+        "matthews_correlation": float(matthews_corrcoef(labels, predictions)),
     }
 
 
@@ -84,5 +85,6 @@ class TaskEvaluator:
             "loss": float(metrics["eval_loss"]),
             "accuracy": float(metrics["eval_accuracy"]),
             "f1": float(metrics["eval_f1"]),
+            "matthews_correlation": float(metrics["eval_matthews_correlation"]),
             "primary_score": float(metrics[f"eval_{self.primary_metric}"]),
         }

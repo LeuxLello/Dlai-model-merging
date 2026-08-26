@@ -9,7 +9,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, matthews_corrcoef
 from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer,
@@ -56,6 +56,7 @@ def _metrics(prediction) -> dict[str, float]:
     return {
         "accuracy": float(accuracy_score(labels, predictions)),
         "f1": float(f1_score(labels, predictions, zero_division=0)),
+        "matthews_correlation": float(matthews_corrcoef(labels, predictions)),
     }
 
 

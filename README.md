@@ -85,3 +85,8 @@ The final corrective run is complete. With fixed data subsets, tensor-wise TIES 
 retention 0.9380 versus 0.9307 for official global TIES. The paired mean difference (global minus
 tensor-wise) was -0.00723 with a bootstrap interval of [-0.01489, 0.00068]. The experimental phase
 is closed; see `results/global_ties_corrective/README.md` for the frozen interpretation.
+
+An explicitly separated extension protocol is available in notebook 10. It adds CoLA and BoolQ,
+expands the primary design to 45 pair-seed units, compares 400 with 1200 optimizer steps on a fixed
+seed, and evaluates directional diagnostics at the constituent-task level. Its conclusions remain
+pending until the Kaggle run is complete and do not alter the frozen four-task findings above.
