@@ -8,6 +8,7 @@
 | Trim/elect/disjoint mean | TIES, Sec. 4 | `ties_merge` | 03-08 | logica diretta, trim tensor-wise |
 | Top-k globale TIES | TIES codice ufficiale | `global_ties_merge` | notebook 09 | run finale completato |
 | Norma L2, coseno, accordo segno | geometria standard + motivazione TIES | `diagnostics.py` | 03-05 | diagnostica del progetto |
+| Proiezione direzionale e rapporto norme | estensione task-level | `diagnostics.py` | 10 | analisi orientata del danno |
 | Retention score | normalizzazione del progetto | notebook/evaluation | 03-08 | metrica del progetto |
 | Scope embeddings/early/late | architettura BERT-mini | `bert_mini_scopes` | 05-07 | design del progetto |
 | Equal-norm | controllo di una spiegazione alternativa | `equal_norm_mean_merge` | 05 | ablation del progetto |

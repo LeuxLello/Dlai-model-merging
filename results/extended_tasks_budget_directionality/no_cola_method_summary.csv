@@ -1,0 +1,5 @@
+method,mean_score_delta,sd_score_delta,worst_score_delta
+tensorwise_ties,-0.035508,0.027028,-0.187000
+global_ties,-0.038778,0.028112,-0.122744
+task_arithmetic,-0.040923,0.032190,-0.149500
+mean,-0.043481,0.023048,-0.169725

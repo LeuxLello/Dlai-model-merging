@@ -1,0 +1,5 @@
+method,mean_delta_long_minus_short,median_delta_long_minus_short,worst_delta,best_delta
+global_ties,-0.029684,-0.029079,-0.070183,0.007441
+mean,-0.033557,-0.034189,-0.078865,-0.009117
+task_arithmetic,-0.025196,-0.024427,-0.061374,-0.005119
+tensorwise_ties,-0.024480,-0.019112,-0.068029,0.005041

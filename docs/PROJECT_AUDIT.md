@@ -2,7 +2,7 @@
 
 ## Valutazione onesta
 
-Il progetto ha già un nucleo scientifico più solido di una semplice demo: domanda falsificabile, tre baseline, sei coppie di task, tre seed, configurazioni congelate, ablation, risultati negativi e analisi degli errori. È direttamente ammesso dalle guideline sotto “model merging” e “language models”. Non è possibile garantire un voto, ma il materiale può sostenere un buon progetto se il report resta preciso e lo studente sa spiegare codice, formule e limiti.
+Il progetto ha un nucleo scientifico più solido di una semplice demo: domanda falsificabile, baseline congelate, più seed, ablation, risultati negativi, analisi degli errori e un'estensione a sei task. Il bundle più recente contiene 45 coppie-seed e un controllo sul budget di training. È direttamente ammesso dalle guideline sotto “model merging” e “language models”. Non è possibile garantire un voto, ma il materiale può sostenere un buon progetto se il report resta preciso e lo studente sa spiegare codice, formule e limiti.
 
 ## Conformità alle guideline
 
@@ -16,34 +16,35 @@ Il progetto ha già un nucleo scientifico più solido di una semplice demo: doma
 | Dichiarazione AI specifica | bozza aggiornata, da finalizzare con il report |
 | Comprensione e verificabilità | in corso tramite guida e checklist |
 
-## Rischi scientifici da risolvere
+## Limiti scientifici correnti
 
-1. **TIES non letterale:** il trim corrente è tensor-wise. Implementare global TIES e confrontarlo con la variante usata.
-2. **Campionamento confuso col seed:** i subset di SST-2/IMDb cambiano col seed. Nel prossimo controllo usare un `subset_seed` fisso, distinto dal training seed, oppure dichiarare esplicitamente che la variabilità include entrambi.
-3. **Specialisti economici:** 400 step rendono l'esperimento eseguibile ma le accuratezze assolute non sono SOTA. La domanda riguarda la retention; va detto chiaramente.
-4. **Poche unità per correlazione:** sei coppie per seed. Mostrare tutti i punti e non sovrainterpretare p-value o causalità.
-5. **Teste specifiche:** il modello fuso richiede l'identità del task. Non chiamarlo sistema universale end-to-end.
+1. **CoLA non appreso a 400 step:** Matthews correlation è zero in tutti i seed; usare sempre il controllo senza CoLA per le conclusioni sul merging.
+2. **Budget lungo single-seed:** il miglioramento degli specialisti e il peggioramento della fusione a 1200 step sono osservati solo sul seed 42.
+3. **Un solo modello base:** tutti i risultati riguardano `prajjwal1/bert-mini`.
+4. **Diagnostiche direzionali esplorative:** 90 direzioni sono più informative delle sei coppie iniziali, ma non esiste ancora una validazione su coppie held-out.
+5. **Teste specifiche:** il modello fuso richiede l'identità del task e non è un sistema universale end-to-end.
 
-## Prossima fase consigliata
+## Stato degli esperimenti chiusi
 
-Un solo esperimento correttivo e mirato, prima del report:
+Global TIES, subset fisso, estensione dei task, budget lungo e diagnostiche direzionali sono completi.
+Nel controllo senza CoLA, tensor-wise TIES conserva il miglior score change medio (`-0.0355`), mentre
+global TIES evita il peggior caso più severo. A 1200 step tutti gli specialisti migliorano, ma ogni
+metodo di fusione peggiora mediamente rispetto alla condizione a 400 step.
 
-1. implementare global TIES conforme al codice ufficiale;
-2. aggiungere test che confrontino flattening, densità e ricostruzione dello state dict;
-3. eseguire notebook 09 con subset fisso e training seed 7/42/123;
-4. confrontare Mean, Task Arithmetic, tensor-wise TIES e global TIES sulle stesse 18 unità pair-seed;
-5. congelare la conclusione; nessuna ulteriore ricerca di iperparametri dopo aver visto il risultato.
+## Eventuale ultimo esperimento
 
-Questo esperimento è più utile al voto di nuove varianti speculative, perché chiude una discrepanza rispetto alla fonte primaria e rende la metodologia difendibile.
-
-L'implementazione, il run Kaggle e il bundle sono completi. Global TIES non ha migliorato la retention media di tensor-wise TIES (`0.9307` contro `0.9380`); l'intervallo bootstrap del delta include appena zero. Il protocollo è ora chiuso e non autorizza ulteriore tuning.
+Se si prosegue, fare un solo tentativo motivato: una regola direzionale di scaling applicata agli
+specialisti a 1200 step. Seed 42 può selezionare una scelta globale da una griglia minima con il
+metodo congelato come controllo; seed 7 e 123 devono restare held-out. Non aggiungere nello stesso
+run DARE, RegMean e molte varianti conflict-aware, perché renderebbero il risultato post-hoc e
+difficile da attribuire.
 
 ## Interfaccia ludica
 
 Non è una “merdata”, ma è opzionale. Può essere una buona demo finale se visualizza il fenomeno scientifico, per esempio facendo scegliere due specialisti e mostrando esempi preservati/persi e conflitti di segno. Non deve diventare una seconda ricerca né occupare spazio prezioso nelle due pagine. Priorità:
 
-1. correttezza global TIES;
-2. report e figure;
+1. report e figure;
+2. eventuale unico test direzionale held-out;
 3. prova orale/spiegazione;
 4. demo ludica solo se resta tempo.
 

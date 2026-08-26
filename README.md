@@ -12,12 +12,14 @@ The project fine-tunes the same compact BERT encoder on several binary NLP tasks
 
 Related tasks should produce more aligned task vectors and suffer less destructive interference. In particular, cosine similarity and sign agreement between task vectors should correlate with the performance retained after merging.
 
-## Planned tasks
+## Tasks
 
 - SST-2: sentiment classification
 - IMDb: sentiment classification
 - MRPC: paraphrase detection
 - RTE: textual entailment
+- CoLA: linguistic acceptability (extension)
+- BoolQ: binary question answering (extension)
 
 SST-2 and IMDb form the expected high-compatibility pair. Cross-family pairs provide lower-compatibility controls.
 
@@ -86,7 +88,8 @@ retention 0.9380 versus 0.9307 for official global TIES. The paired mean differe
 tensor-wise) was -0.00723 with a bootstrap interval of [-0.01489, 0.00068]. The experimental phase
 is closed; see `results/global_ties_corrective/README.md` for the frozen interpretation.
 
-An explicitly separated extension protocol is available in notebook 10. It adds CoLA and BoolQ,
-expands the primary design to 45 pair-seed units, compares 400 with 1200 optimizer steps on a fixed
-seed, and evaluates directional diagnostics at the constituent-task level. Its conclusions remain
-pending until the Kaggle run is complete and do not alter the frozen four-task findings above.
+The notebook-10 extension is complete. It expands the design to 45 pair-seed units, compares 400
+with 1200 optimizer steps on seed 42, and evaluates 90 directional observations. CoLA did not learn
+at 400 steps, so the six-task aggregate is reported together with a 30-unit no-CoLA sensitivity
+analysis. Longer training improved all six specialists but increased average merge degradation for
+every frozen method. See `results/extended_tasks_budget_directionality/INTERPRETATION.md`.

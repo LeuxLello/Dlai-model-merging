@@ -53,3 +53,11 @@ Raw logs and checkpoints belong in Kaggle outputs or another artifact store and 
   validation examples. The repository retains aggregate tables, dataset audit, figure, and
   interpretation. Raw text-level rows remain in the Kaggle artifact to avoid redistributing dataset
   content through GitHub.
+
+## Extended tasks, budget, and directionality
+
+- `extended_tasks_budget_directionality/`: notebook-10 output for six tasks, 45 primary pair-seed
+  units, a seed-42 400/1200-step budget ablation, and 90 directional observations. CoLA failed to
+  learn at 400 steps, so the official interpretation includes a 30-unit sensitivity analysis that
+  excludes CoLA pairs. Longer training improved all specialists but increased average merge
+  degradation for every frozen method.

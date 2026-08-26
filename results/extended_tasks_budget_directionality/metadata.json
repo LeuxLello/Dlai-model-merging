@@ -1,0 +1,45 @@
+{
+  "purpose": "six-task generalization, training-budget robustness, and directional interference",
+  "commit": "941dce0b577a221701a49fd9917805ca64def11a",
+  "base_model": "prajjwal1/bert-mini",
+  "tasks": [
+    "sst2",
+    "imdb",
+    "mrpc",
+    "rte",
+    "cola",
+    "boolq"
+  ],
+  "primary_seeds": [
+    7,
+    42,
+    123
+  ],
+  "subset_seed": 2026,
+  "short_steps": 400,
+  "long_steps": 1200,
+  "budget_ablation_seed": 42,
+  "max_train_samples": 12000,
+  "max_eval_samples": 2000,
+  "methods": {
+    "mean": {},
+    "task_arithmetic": {
+      "scale": 0.75
+    },
+    "tensorwise_ties": {
+      "density": 0.2,
+      "scale": 1.0
+    },
+    "global_ties": {
+      "density": 0.2,
+      "scale": 1.0
+    }
+  },
+  "gpu": "Tesla T4",
+  "visible_gpu_count": 2,
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "primary_pair_seed_units": 45,
+  "directional_units": 90,
+  "confirmatory_limits": "new tasks and budget analysis extend a closed four-task protocol; no result-dependent tuning"
+}

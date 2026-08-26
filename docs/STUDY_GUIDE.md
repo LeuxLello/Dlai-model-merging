@@ -10,7 +10,7 @@ Partiamo da un unico BERT-mini pre-addestrato e lo specializziamo separatamente 
 
 Il progetto non sta creando quattro database e non genera dati sintetici. I testi provengono da dataset pubblici scaricati a runtime da Hugging Face. Ogni specialista riceve testi ed etichette e impara un compito binario.
 
-## 2. I quattro specialisti, in parole semplici
+## 2. Gli specialisti, in parole semplici
 
 | Specialista | Dataset | Input reale | Domanda |
 |---|---|---|---|
@@ -18,6 +18,8 @@ Il progetto non sta creando quattro database e non genera dati sintetici. I test
 | IMDb | IMDb Large Movie Review | una recensione cinematografica | la recensione è positiva o negativa? |
 | MRPC | GLUE/MRPC | due frasi | esprimono sostanzialmente la stessa cosa? |
 | RTE | GLUE/RTE | premessa e ipotesi | la premessa implica l'ipotesi? |
+| CoLA | GLUE/CoLA | una frase | è linguisticamente accettabile? |
+| BoolQ | SuperGLUE/BoolQ | domanda e passaggio | la risposta è sì o no? |
 
 SST-2 e IMDb sono compiti affini; MRPC e RTE richiedono relazioni tra due frasi. Questa diversità permette di confrontare fusioni intuitivamente compatibili e fusioni più difficili.
 
@@ -92,6 +94,7 @@ Retention `1.0` significa che il modello fuso conserva il 100% del punteggio del
 | 07 | prova densità TIES diverse per scope, stesso split sviluppo/test | tentativo di miglioramento; controllo vince |
 | 08 | osserva esempi reali persi, preservati o recuperati | analisi qualitativa |
 | 09 | confronta tensor-wise e global TIES con subset fisso | conferma correttiva finale |
+| 10 | aggiunge CoLA/BoolQ, confronta 400/1200 step e diagnostiche direzionali | estensione di generalizzazione |
 
 ## 7. Cosa abbiamo scoperto finora
 
@@ -101,6 +104,9 @@ Retention `1.0` significa che il modello fuso conserva il 100% del punteggio del
 - Le due estensioni proposte non hanno superato i controlli su seed tenuti separati. È un risultato negativo valido: evita una falsa dichiarazione di miglioramento.
 - L'analisi degli esempi mostra che coppie affini di sentiment sono più stabili, mentre RTE è più fragile e asimmetrico.
 - Con subset identici tra seed, il coseno resta positivamente associato alla retention. Global TIES non migliora la media della variante tensor-wise: `0.9307` contro `0.9380`; il delta medio è `-0.00723` con intervallo bootstrap `[-0.01489, 0.00068]`. Global TIES evita però il caso peggiore più severo di tensor-wise TIES.
+- Nell'estensione, CoLA non impara a 400 step: le 45 coppie-seed complete devono essere accompagnate dal controllo senza CoLA su 30 unità. In questo controllo tensor-wise TIES ha la perdita media più contenuta (`-0.0355`).
+- A 1200 step tutti e sei gli specialisti seed-42 migliorano, ma la degradazione media della fusione aumenta per tutti i metodi. Specializzazione più forte non implica fusione più facile.
+- Le diagnostiche direzionali evidenziano asimmetrie tra i due task della stessa coppia, ma restano esplorative e non sono ancora un predittore validato su coppie held-out.
 
 ## 8. Percorso di lettura minimo
 
@@ -114,12 +120,12 @@ I link ufficiali e le sezioni precise sono in `references/README.md`. Dopo ogni 
 
 ## 9. Limiti da saper dichiarare
 
-- BERT-mini e quattro task binari limitano la generalizzazione.
+- Un solo modello base limita ancora la generalizzazione, anche dopo l'estensione a sei task.
 - Tre seed sono meglio di uno, ma non costituiscono un campione ampio.
-- Le correlazioni per seed hanno solo sei coppie.
-- Per SST-2 e IMDb il sottoinsieme cambia con il seed; quindi la variabilità combina inizializzazione/ordine e campionamento dei dati.
-- La retention è relativa a specialisti addestrati con un budget ridotto di 400 step, non a modelli allo stato dell'arte.
+- Le correlazioni iniziali hanno sei coppie per seed; l'estensione ne ha quindici, ma cinque coinvolgono uno specialista CoLA non appreso a 400 step.
+- L'esperimento correttivo e l'estensione separano il subset seed dal training seed.
+- Il confronto a 1200 step usa soltanto seed 42 e richiede conferma held-out.
 - Servono teste specifiche per compito.
-- TIES nei risultati correnti è tensor-wise, non la versione globale ufficiale.
+- Tensor-wise e global TIES sono entrambe implementate e confrontate; nessuna domina ogni criterio.
 
 Saper dichiarare questi limiti rafforza il progetto: dimostra che le conclusioni sono proporzionate all'evidenza.

@@ -118,6 +118,12 @@ task-directional diagnostics. A seed-42 ablation compares 400 with 1200 optimize
 subsets. DARE, RegMean, and a new conflict-aware merge remain optional and are not selected using
 the extension results.
 
+The extension run is complete. CoLA produced zero Matthews correlation at 400 steps in every seed,
+so all-task summaries are accompanied by a no-CoLA sensitivity analysis. At 1200 steps every
+specialist improved on seed 42, while pair-average merge degradation became more negative for every
+frozen method. Any follow-up must treat the 1200-step result as development evidence and evaluate a
+single pre-declared intervention on held-out seeds rather than search over many post-hoc variants.
+
 ## 4. Success criteria
 
 The minimum complete project contains:
