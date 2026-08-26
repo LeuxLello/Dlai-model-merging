@@ -93,3 +93,6 @@ with 1200 optimizer steps on seed 42, and evaluates 90 directional observations.
 at 400 steps, so the six-task aggregate is reported together with a 30-unit no-CoLA sensitivity
 analysis. Longer training improved all six specialists but increased average merge degradation for
 every frozen method. See `results/extended_tasks_budget_directionality/INTERPRETATION.md`.
+
+Notebook 11 contains the final pre-declared follow-up: deterministic projection-balanced merging
+of 1200-step specialists, using seed 42 for development and seeds 7 and 123 for held-out evaluation.

@@ -14,6 +14,8 @@ from dlai_merge.diagnostics import (
 from dlai_merge.merging import (
     global_ties_merge,
     mean_merge,
+    projection_balanced_merge,
+    projection_balanced_weights,
     task_arithmetic,
     ties_merge,
     ties_merge_by_scope,
@@ -34,6 +36,26 @@ def test_task_arithmetic_sums_scaled_updates():
     base = state([0.0, 0.0])
     merged = task_arithmetic(base, [state([2.0, 0.0]), state([0.0, 4.0])], scale=0.5)
     assert torch.allclose(merged["weight"], torch.tensor([1.0, 2.0]))
+
+
+def test_projection_balanced_merge_is_mean_for_orthogonal_updates():
+    base = state([0.0, 0.0])
+    specialists = [state([2.0, 0.0]), state([0.0, 4.0])]
+    weights = projection_balanced_weights(base, specialists)
+    merged = projection_balanced_merge(base, specialists)
+    assert weights == pytest.approx((0.5, 0.5))
+    assert torch.allclose(merged["weight"], torch.tensor([1.0, 2.0]))
+
+
+def test_projection_balanced_weights_clip_scale_asymmetry():
+    base = state([0.0, 0.0])
+    weights = projection_balanced_weights(base, [state([1.0, 0.0]), state([2.0, 0.0])])
+    assert weights == pytest.approx((0.75, 0.25))
+
+
+def test_projection_balanced_merge_requires_two_specialists():
+    with pytest.raises(ValueError):
+        projection_balanced_merge(state([0.0]), [state([1.0])])
 
 
 def test_ties_elects_dominant_sign_and_discards_conflict():

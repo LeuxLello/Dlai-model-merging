@@ -12,5 +12,6 @@ Planned execution order:
 8. `08_example_level_error_analysis.ipynb` - inspect prediction transitions on real examples for all six pairs.
 9. `09_global_ties_corrective.ipynb` - final corrective comparison using fixed data subsets and the official global TIES trimming scope.
 10. `10_extended_tasks_budget_directionality.ipynb` - extend to six task families, compare 400 versus 1200 training steps, and test directional interference diagnostics.
+11. `11_projection_balanced_long_specialists.ipynb` - test deterministic projection-balanced merging on 1200-step specialists with seeds 7 and 123 held out.
 
 The notebooks will call code from `src/dlai_merge`; they should not contain separate, drifting implementations of the algorithms.

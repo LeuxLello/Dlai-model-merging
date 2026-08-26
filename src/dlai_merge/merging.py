@@ -67,6 +67,52 @@ def task_arithmetic(
     return _apply_update(base, update, scale=scale)
 
 
+def projection_balanced_weights(
+    base: StateDict,
+    specialists: Sequence[StateDict],
+    min_weight: float = 0.25,
+    eps: float = 1e-12,
+) -> tuple[float, float]:
+    """Return complementary weights that balance normalized cross-task projections.
+
+    The unbounded solution equalizes the merged update's projection onto each task vector after
+    normalizing by that task vector's squared norm. Clipping prevents nearly singular geometries
+    from assigning almost all capacity to one specialist.
+    """
+    if len(specialists) != 2:
+        raise ValueError("Projection-balanced merging requires exactly two specialists.")
+    if not 0.0 <= min_weight < 0.5:
+        raise ValueError("min_weight must lie in [0, 0.5).")
+    left, right = task_vectors(base, specialists)
+    a = torch.cat([left[key].float().reshape(-1) for key in sorted(left)])
+    b = torch.cat([right[key].float().reshape(-1) for key in sorted(right)])
+    dot = torch.dot(a, b)
+    projection_left = dot / a.square().sum().clamp_min(eps)
+    projection_right = dot / b.square().sum().clamp_min(eps)
+    denominator = 2.0 - projection_left - projection_right
+    if not torch.isfinite(denominator) or denominator.abs() <= eps:
+        left_weight = 0.5
+    else:
+        left_weight = float((1.0 - projection_left) / denominator)
+    left_weight = min(max(left_weight, min_weight), 1.0 - min_weight)
+    return left_weight, 1.0 - left_weight
+
+
+def projection_balanced_merge(
+    base: StateDict,
+    specialists: Sequence[StateDict],
+    min_weight: float = 0.25,
+) -> dict[str, torch.Tensor]:
+    """Merge two task vectors using deterministic projection-balanced weights."""
+    left_weight, right_weight = projection_balanced_weights(base, specialists, min_weight)
+    vectors = task_vectors(base, specialists)
+    update = {
+        key: left_weight * vectors[0][key].float() + right_weight * vectors[1][key].float()
+        for key in base
+    }
+    return _apply_update(base, update, scale=1.0)
+
+
 def _topk_mask(stacked: torch.Tensor, density: float) -> torch.Tensor:
     if not 0.0 < density <= 1.0:
         raise ValueError("density must lie in (0, 1].")

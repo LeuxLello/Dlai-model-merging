@@ -124,6 +124,16 @@ specialist improved on seed 42, while pair-average merge degradation became more
 frozen method. Any follow-up must treat the 1200-step result as development evidence and evaluate a
 single pre-declared intervention on held-out seeds rather than search over many post-hoc variants.
 
+### Projection-balanced long-specialist protocol
+
+Notebook 11 is the single pre-declared follow-up. It evaluates 1200-step specialists on all six
+tasks and compares the four frozen methods with one deterministic projection-balanced merge. The
+new method equalizes normalized cross-task projections and clips complementary weights to
+`[0.25, 0.75]`; there is no hyperparameter search. Seed 42 is development evidence, while seeds 7
+and 123 are held out. The primary comparison is projection-balanced versus tensor-wise TIES on
+held-out pairs excluding CoLA, with global TIES as a secondary comparator. Full CoLA results remain
+in the audit tables.
+
 ## 4. Success criteria
 
 The minimum complete project contains:
