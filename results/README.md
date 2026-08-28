@@ -61,3 +61,11 @@ Raw logs and checkpoints belong in Kaggle outputs or another artifact store and 
   learn at 400 steps, so the official interpretation includes a 30-unit sensitivity analysis that
   excludes CoLA pairs. Longer training improved all specialists but increased average merge
   degradation for every frozen method.
+
+## Projection-balanced long specialists
+
+- `projection_balanced_long_specialists/`: final held-out test on 1200-step specialists. A
+  deterministic directional reweighting is significantly worse than tensor-wise TIES on the
+  primary 20 no-CoLA pair-seed units (mean delta `-0.00894`, bootstrap interval
+  `[-0.01485, -0.00304]`). The learned weights stay close to 0.5, showing that pair-level scalar
+  balancing does not resolve coordinate-level interference.

@@ -1,0 +1,45 @@
+{
+  "purpose": "held-out projection-balanced merging of 1200-step specialists",
+  "commit": "32c2568ef9646fe18f8eb449f10d1f6e8b6db45e",
+  "base_model": "prajjwal1/bert-mini",
+  "tasks": [
+    "sst2",
+    "imdb",
+    "mrpc",
+    "rte",
+    "cola",
+    "boolq"
+  ],
+  "development_seed": 42,
+  "heldout_seeds": [
+    7,
+    123
+  ],
+  "subset_seed": 2026,
+  "training_steps": 1200,
+  "min_weight": 0.25,
+  "primary_comparator": "tensorwise_ties",
+  "primary_scope": "held-out pairs excluding CoLA",
+  "methods": {
+    "mean": {},
+    "task_arithmetic": {
+      "scale": 0.75
+    },
+    "tensorwise_ties": {
+      "density": 0.2,
+      "scale": 1.0
+    },
+    "global_ties": {
+      "density": 0.2,
+      "scale": 1.0
+    },
+    "projection_balanced": {
+      "min_weight": 0.25
+    }
+  },
+  "gpu": "Tesla T4",
+  "visible_gpu_count": 2,
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "bootstrap_resamples": 10000
+}

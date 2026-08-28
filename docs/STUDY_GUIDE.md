@@ -95,6 +95,7 @@ Retention `1.0` significa che il modello fuso conserva il 100% del punteggio del
 | 08 | osserva esempi reali persi, preservati o recuperati | analisi qualitativa |
 | 09 | confronta tensor-wise e global TIES con subset fisso | conferma correttiva finale |
 | 10 | aggiunge CoLA/BoolQ, confronta 400/1200 step e diagnostiche direzionali | estensione di generalizzazione |
+| 11 | prova pesi projection-balanced su specialisti a 1200 step | test held-out finale; non migliora TIES |
 
 ## 7. Cosa abbiamo scoperto finora
 
@@ -106,7 +107,8 @@ Retention `1.0` significa che il modello fuso conserva il 100% del punteggio del
 - Con subset identici tra seed, il coseno resta positivamente associato alla retention. Global TIES non migliora la media della variante tensor-wise: `0.9307` contro `0.9380`; il delta medio è `-0.00723` con intervallo bootstrap `[-0.01489, 0.00068]`. Global TIES evita però il caso peggiore più severo di tensor-wise TIES.
 - Nell'estensione, CoLA non impara a 400 step: le 45 coppie-seed complete devono essere accompagnate dal controllo senza CoLA su 30 unità. In questo controllo tensor-wise TIES ha la perdita media più contenuta (`-0.0355`).
 - A 1200 step tutti e sei gli specialisti seed-42 migliorano, ma la degradazione media della fusione aumenta per tutti i metodi. Specializzazione più forte non implica fusione più facile.
-- Le diagnostiche direzionali evidenziano asimmetrie tra i due task della stessa coppia, ma restano esplorative e non sono ancora un predittore validato su coppie held-out.
+- Nel notebook 10 le diagnostiche direzionali erano esplorative; il notebook 11 ne replica la direzione sui seed held-out, senza trasformarle in un metodo di fusione efficace.
+- Su seed 7 e 123 a 1200 step, la relazione direzionale si replica ma usarla per assegnare un solo peso a ciascun task non migliora la fusione: projection-balanced perde `0.00894` rispetto a tensor-wise TIES e l'intervallo bootstrap esclude zero.
 
 ## 8. Percorso di lettura minimo
 

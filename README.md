@@ -94,5 +94,8 @@ at 400 steps, so the six-task aggregate is reported together with a 30-unit no-C
 analysis. Longer training improved all six specialists but increased average merge degradation for
 every frozen method. See `results/extended_tasks_budget_directionality/INTERPRETATION.md`.
 
-Notebook 11 contains the final pre-declared follow-up: deterministic projection-balanced merging
-of 1200-step specialists, using seed 42 for development and seeds 7 and 123 for held-out evaluation.
+Notebook 11 completes the final pre-declared follow-up. On 20 held-out no-CoLA pair-seed units,
+projection-balanced merging is worse than tensor-wise TIES by `-0.00894` on average, with bootstrap
+interval `[-0.01485, -0.00304]`. Directional geometry remains predictive, but one scalar weight per
+task is too coarse to repair coordinate-level interference. The experimental sequence is closed;
+see `results/projection_balanced_long_specialists/INTERPRETATION.md`.

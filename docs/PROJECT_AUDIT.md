@@ -21,7 +21,7 @@ Il progetto ha un nucleo scientifico più solido di una semplice demo: domanda f
 1. **CoLA non appreso a 400 step:** Matthews correlation è zero in tutti i seed; usare sempre il controllo senza CoLA per le conclusioni sul merging.
 2. **Budget lungo single-seed:** il miglioramento degli specialisti e il peggioramento della fusione a 1200 step sono osservati solo sul seed 42.
 3. **Un solo modello base:** tutti i risultati riguardano `prajjwal1/bert-mini`.
-4. **Diagnostiche direzionali esplorative:** 90 direzioni sono più informative delle sei coppie iniziali, ma non esiste ancora una validazione su coppie held-out.
+4. **Diagnostiche direzionali limitate:** la relazione si replica sui seed held-out, ma non è validata su nuovi task o modelli base e non produce una fusione migliore con pesi scalari.
 5. **Teste specifiche:** il modello fuso richiede l'identità del task e non è un sistema universale end-to-end.
 
 ## Stato degli esperimenti chiusi
@@ -31,22 +31,21 @@ Nel controllo senza CoLA, tensor-wise TIES conserva il miglior score change medi
 global TIES evita il peggior caso più severo. A 1200 step tutti gli specialisti migliorano, ma ogni
 metodo di fusione peggiora mediamente rispetto alla condizione a 400 step.
 
-## Eventuale ultimo esperimento
+## Chiusura sperimentale
 
-Se si prosegue, fare un solo tentativo motivato: una regola direzionale di scaling applicata agli
-specialisti a 1200 step. Seed 42 può selezionare una scelta globale da una griglia minima con il
-metodo congelato come controllo; seed 7 e 123 devono restare held-out. Non aggiungere nello stesso
-run DARE, RegMean e molte varianti conflict-aware, perché renderebbero il risultato post-hoc e
-difficile da attribuire.
+Il test direzionale su specialisti a 1200 step è completo. Projection-balanced è significativamente
+peggiore di tensor-wise TIES sul confronto primario held-out. I pesi rimangono quasi sempre vicini a
+0.5: una correzione globale per task non cattura i conflitti coordinata-per-coordinata. Non è
+metodologicamente corretto aggiungere ora DARE, RegMean o nuove varianti usando gli stessi seed
+held-out già osservati. La priorità passa al report e alla comprensione orale.
 
 ## Interfaccia ludica
 
 Non è una “merdata”, ma è opzionale. Può essere una buona demo finale se visualizza il fenomeno scientifico, per esempio facendo scegliere due specialisti e mostrando esempi preservati/persi e conflitti di segno. Non deve diventare una seconda ricerca né occupare spazio prezioso nelle due pagine. Priorità:
 
 1. report e figure;
-2. eventuale unico test direzionale held-out;
-3. prova orale/spiegazione;
-4. demo ludica solo se resta tempo.
+2. prova orale/spiegazione;
+3. demo ludica solo se resta tempo.
 
 ## Checklist personale dello studente
 

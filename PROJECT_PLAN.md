@@ -134,6 +134,11 @@ and 123 are held out. The primary comparison is projection-balanced versus tenso
 held-out pairs excluding CoLA, with global TIES as a secondary comparator. Full CoLA results remain
 in the audit tables.
 
+The run is complete. Projection-balanced merging is worse than tensor-wise TIES on the primary
+held-out comparison (mean delta `-0.00894`, bootstrap 95% interval `[-0.01485, -0.00304]`). Its
+weights remain close to 0.5, so global task-level balancing behaves almost like Mean and does not
+resolve coordinate-level conflicts. No further method selection follows this held-out result.
+
 ## 4. Success criteria
 
 The minimum complete project contains:

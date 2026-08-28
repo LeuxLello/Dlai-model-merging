@@ -1,0 +1,5 @@
+seed,feature,pearson_with_loss,spearman_with_loss
+7,directional_projection,-0.480194375782675,-0.5398496240601504
+7,incoming_norm_ratio,-0.526403030217813,-0.5593984962406015
+123,directional_projection,-0.39366512005554527,-0.5278195488721804
+123,incoming_norm_ratio,-0.5590082447059039,-0.8390977443609022
