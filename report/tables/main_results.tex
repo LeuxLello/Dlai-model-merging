@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\caption{Held-out merging results at 1,200 training steps on 20 pair--seed units excluding CoLA. Score changes are measured relative to the corresponding specialists.}
+\label{tab:main-results}
+\begin{tabular}{lrrrr}
+\hline
+Method & Mean $\Delta$ & SD & Worst $\Delta$ & Retained \\
++\hline
+Tensor-wise TIES & -0.0534 & 0.0276 & -0.1435 & 0.9263 \\
+Global TIES & -0.0615 & 0.0314 & -0.1794 & 0.9154 \\
+Projection-balanced & -0.0624 & 0.0317 & -0.2255 & 0.9151 \\
+Mean & -0.0631 & 0.0308 & -0.2265 & 0.9141 \\
+Task Arithmetic & -0.0645 & 0.0407 & -0.2000 & 0.9106 \\
+\hline
+\end{tabular}
+\end{table}

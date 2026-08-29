@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\caption{Tasks used in the extended protocol. Each run uses up to 12,000 training examples and 2,000 evaluation examples.}
+\label{tab:task-protocol}
+\begin{tabular}{llll}
+\hline
+Task & Dataset & Family & Metric \\
++\hline
+SST-2 & GLUE/sst2 & sentence sentiment & accuracy \\
+IMDb & IMDb & document sentiment & accuracy \\
+MRPC & GLUE/mrpc & paraphrase detection & F1 \\
+RTE & GLUE/rte & textual entailment & accuracy \\
+CoLA & GLUE/cola & linguistic acceptability & Matthews correlation \\
+BoolQ & SuperGLUE/boolq & binary question answering & accuracy \\
+\hline
+\end{tabular}
+\end{table}
