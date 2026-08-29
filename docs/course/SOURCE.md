@@ -1,9 +1,13 @@
-# Materiale ufficiale del corso
+# Official course material
 
-- `guidelines.pdf` è la copia fornita dallo studente e corrisponde alle project guidelines del repository ufficiale DLAI 2025/2026.
-- Repository del corso: https://github.com/erodola/DLAI-s2-2026
-- Data di verifica locale: 2026-08-24.
+- `guidelines.pdf` is the project-guideline document supplied for the DLAI 2025/2026 course.
+- Official course repository: https://github.com/erodola/DLAI-s2-2026
+- Locally verified: 2026-08-24.
 
-Punti essenziali verificati: model merging e language models sono temi ammessi; la consegna richiede repository, report nel template fisso (due pagine per un singolo studente, bibliografia esclusa) e dichiarazione specifica dell'uso di AI. L'eventuale appendice è ammessa dopo le referenze, ma non sostituisce il nucleo del report.
+The guidelines allow model merging and language-model projects. Submission requires an accessible
+code repository, the unmodified report template, a two-page main report for one student, and a
+specific AI-use statement. References may continue beyond the two-page main text, and optional
+appendix material may follow the bibliography.
 
-Il template originale scaricato dallo stesso repository è conservato in `report/template/`. Non modificarne margini o spaziature.
+The original report template is stored in `report/template/`; its margins and spacing must not be
+modified.

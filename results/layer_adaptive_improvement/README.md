@@ -1,4 +1,4 @@
-# Layer-adaptive improvement: interpretation
+# Layer-adaptive improvement
 
 ## Protocol
 

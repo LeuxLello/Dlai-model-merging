@@ -1,13 +1,35 @@
 # AI-use statement (working record)
 
-This record is deliberately specific and will be condensed for the official report. OpenAI Codex has had a substantial role in formulating and refining the research question, designing the experiment sequence, implementing the core Python modules and Kaggle notebooks, debugging, organizing outputs, analysing preliminary results, locating literature, and drafting documentation. The student directed the project through iterative requests, configured and executed the Kaggle runs, supplied the resulting artifacts, discussed the interpretation and decided to continue or stop each experimental branch.
+OpenAI Codex had a substantial role in formulating and refining the research question, designing the
+experiment sequence, implementing the Python package and Kaggle notebooks, debugging, organizing
+result bundles, checking table integrity, locating scientific sources, and drafting repository
+documentation. The student directed the work through iterative requests, configured and executed all
+Kaggle runs, supplied the resulting artifacts, reviewed the interpretations, and decided whether to
+continue or stop each experimental branch.
 
-The final scientific responsibility cannot be delegated: before submission, the student will personally read the cited sections, inspect the code and outputs, verify every reported value and claim, rewrite the report in their own informed voice, and be able to explain the complete pipeline. Items not yet personally verified must not be described as independently checked. This wording follows the course template's requirement for an honest, sufficiently specific disclosure; extensive AI use is permitted, while submitting material the student does not understand is not.
+Scientific responsibility remains with the student. Before submission, the student will personally
+inspect the code and outputs, verify every value used in the report, read the cited sources, rewrite
+the final report in an informed personal voice, and be able to explain the complete pipeline. Work
+that has not been personally verified must not be presented as independently checked.
 
-## Running log
+## Activity record
 
-- 2026-08-19: Codex helped analyze the project guidelines, formulate the research question, define the initial experiment design, and scaffold the repository.
-- 2026-08-19 to 2026-08-24: Codex implemented the training, merging, evaluation, diagnostic and ablation code; created notebooks 01-08; organized user-executed Kaggle outputs; proposed and analysed confirmatory, improvement and error-analysis phases; and maintained repository documentation. The student ran the notebooks on Kaggle, returned the outputs and made the project-level decisions through the conversation.
-- 2026-08-24: Codex audited the literature-to-code mapping, identified that the current TIES trim is tensor-wise rather than the official global flattening, and drafted a study guide and corrective roadmap. This issue remains to be resolved experimentally.
-- 2026-08-24: Codex implemented global TIES, separated data-subset and training seeds, added unit tests, and created the final corrective notebook 09. The student will execute the notebook on Kaggle and inspect the resulting comparison.
-- 2026-08-24: The student executed notebook 09 on Kaggle and supplied the complete output bundle. Codex verified its metadata and table integrity, computed grouped summaries and fixed-subset correlations, archived the outputs, and drafted the frozen interpretation. No further result-dependent tuning was performed.
+- 2026-08-19: Codex helped interpret the project requirements, refine the research question, define
+  the controlled design, and scaffold the repository.
+- 2026-08-19 to 2026-08-24: Codex implemented training, evaluation, model-merging, diagnostics, and
+  ablation utilities; created notebooks 01–08; and organized the result workflow. The student ran
+  the notebooks on Kaggle and returned the output bundles.
+- 2026-08-24: Codex identified the difference between tensor-wise trimming and the reference global
+  TIES scope, implemented global TIES, separated subset and training seeds, added tests, and created
+  notebook 09. The student executed the corrective run and supplied its outputs.
+- 2026-08-26: Codex extended the task registry with CoLA and BoolQ, added Matthews correlation and
+  directional diagnostics, and created notebook 10. The student executed the six-task and
+  400/1,200-step experiments and supplied the complete bundle.
+- 2026-08-28: Codex implemented deterministic projection-balanced merging with unit tests and
+  created notebook 11. The student executed the 1,200-step held-out experiment and supplied the
+  complete bundle.
+- 2026-08-29: Codex verified the final bundle structure and paired summaries, consolidated the
+  repository documentation, and prepared the project for report writing.
+
+The final report will contain a shorter disclosure consistent with this record and the course
+guidelines.

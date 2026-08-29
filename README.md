@@ -1,101 +1,98 @@
 # Predicting Interference in Model Merging
 
-Deep Learning & Applied AI (DLAI), Sapienza University of Rome, 2025/2026.
+Deep Learning & Applied AI, Sapienza University of Rome, 2025/2026.
 
-## Research question
+## Overview
 
-Can the compatibility of task vectors predict when merging independently fine-tuned models will help or hurt performance?
+This project studies whether task-vector geometry predicts interference when independently
+fine-tuned language models are merged in weight space. All specialists start from the same compact
+BERT encoder. Only encoder parameters are merged; each task retains its own classification head.
 
-The project fine-tunes the same compact BERT encoder on several binary NLP tasks, merges the resulting encoder updates, and relates post-merge performance to parameter-space interference. Task-specific classification heads are **not** merged: each merged encoder is evaluated with the corresponding specialized head.
+The experiments cover six binary NLP tasks:
 
-## Main hypothesis
-
-Related tasks should produce more aligned task vectors and suffer less destructive interference. In particular, cosine similarity and sign agreement between task vectors should correlate with the performance retained after merging.
-
-## Tasks
-
-- SST-2: sentiment classification
-- IMDb: sentiment classification
-- MRPC: paraphrase detection
-- RTE: textual entailment
-- CoLA: linguistic acceptability (extension)
-- BoolQ: binary question answering (extension)
-
-SST-2 and IMDb form the expected high-compatibility pair. Cross-family pairs provide lower-compatibility controls.
+| Task | Dataset | Family | Primary metric |
+|---|---|---|---|
+| SST-2 | GLUE/SST-2 | sentence sentiment | accuracy |
+| IMDb | IMDb | document sentiment | accuracy |
+| MRPC | GLUE/MRPC | paraphrase detection | F1 |
+| RTE | GLUE/RTE | textual entailment | accuracy |
+| CoLA | GLUE/CoLA | linguistic acceptability | Matthews correlation |
+| BoolQ | SuperGLUE/BoolQ | binary question answering | accuracy |
 
 ## Methods
 
-- Independent fine-tuning (specialist upper bound)
-- Pretrained base model (no-task-update reference)
-- Mean of task vectors
-- Task Arithmetic with a tunable scaling coefficient
-- TIES-Merging (trim, elect sign, merge)
+- Mean task-vector merging
+- Task Arithmetic
+- Tensor-wise TIES
+- Global TIES following the reference flatten-first scope
+- Projection-balanced merging
 
-## Primary measurements
+The reusable implementation is in `src/dlai_merge/`. It includes specialist training, task loading,
+evaluation, merging algorithms, directional diagnostics, and controlled ablations.
 
-- Validation score retained relative to each specialist
-- Average and worst-task retained performance
-- Task-vector cosine similarity
-- Sign agreement and sign conflict rate
-- Layer-wise update norm and alignment
-- Correlation between interference indicators and merge degradation
+## Main findings
+
+- Task-vector cosine similarity is positively associated with retained merge performance across
+  training seeds.
+- TIES-style coordinate conflict handling is more reliable than uniform averaging.
+- Training specialists for 1,200 rather than 400 optimizer steps improves every task, but makes
+  their encoders harder to merge.
+- Directional diagnostics replicate on held-out seeds, confirming that merge damage can be
+  asymmetric across the two tasks in a pair.
+- Projection-balanced scalar weights remain close to 0.5 and do not improve merging. On the primary
+  held-out comparison, projection-balanced merging is worse than tensor-wise TIES by `-0.00894`
+  with bootstrap interval `[-0.01485, -0.00304]`.
 
 ## Repository layout
 
 ```text
-configs/       experiment definitions
-notebooks/     Kaggle entry points and analysis
-src/dlai_merge reusable implementation
-tests/         fast unit tests for merging algorithms
-results/       lightweight tables and final figures
-report/        official report and AI-use statement
-docs/          study guide, method-to-code map, and project audit
-references/    authoritative reading list and BibTeX bibliography
+configs/       experiment configuration
+notebooks/     Kaggle experiment entry points
+src/           reusable Python package
+tests/         unit tests for merging and diagnostics
+results/       compact CSV, JSON, figures, and per-experiment README files
+references/    scientific sources and BibTeX
+report/        official course template
+docs/course/   original project guidelines and provenance
 ```
 
-## Environment
+## Local setup
 
-Python 3.11 is recommended.
+Python 3.11 or later is recommended.
 
 ```bash
 pip install -e ".[dev]"
 pytest
 ```
 
-Kaggle-specific instructions will be added to `notebooks/01_kaggle_smoke_test.ipynb`. Large checkpoints and tokens must never be committed.
+Large checkpoints are intentionally excluded from Git. The repository stores compact result tables,
+figures, metadata, and the code required to reproduce them.
 
-## Status
+## Notebook order
 
-The initial multi-seed confirmation and explanatory ablations are complete. Task-vector cosine similarity
-is positively associated with retained merge performance across the three tested seeds, while simple norm equalization
-and uniform early-layer attenuation do not repair fragile merges. TIES is currently the strongest
-frozen baseline among the tested methods. The existing implementation uses tensor-wise rather than
-official global trimming, so a corrective global-TIES comparison is required before final claims.
-Two pre-declared improvement attempts selected their explicit no-change controls. The completed
-error analysis shows that compatible sentiment merges are comparatively stable, while pairs involving
-RTE produce larger and task-asymmetric losses.
+The notebooks are numbered in execution order. Notebook 01 validates the environment; notebooks
+02–04 establish the specialist and multi-seed baselines; notebooks 05–08 contain explanatory
+ablations and error analysis; notebook 09 verifies global TIES; notebooks 10–11 extend the study to
+six tasks, longer training, directional diagnostics, and the final held-out test.
 
-## Start here
+Detailed inputs and outputs are listed in [`notebooks/README.md`](notebooks/README.md). Each result
+directory contains a README with its protocol, tables, limitations, and frozen conclusion.
 
-- [`docs/STUDY_GUIDE.md`](docs/STUDY_GUIDE.md): plain-language walkthrough from datasets to conclusions.
-- [`references/README.md`](references/README.md): papers, exact sections, and official data/model sources.
-- [`docs/METHOD_TO_CODE.md`](docs/METHOD_TO_CODE.md): formula-to-code-to-notebook traceability.
-- [`docs/PROJECT_AUDIT.md`](docs/PROJECT_AUDIT.md): guideline compliance, limitations, and final roadmap.
-- [`AI_USAGE.md`](AI_USAGE.md): honest working record for the mandatory disclosure.
+## Key result directories
 
-The final corrective run is complete. With fixed data subsets, tensor-wise TIES achieved mean
-retention 0.9380 versus 0.9307 for official global TIES. The paired mean difference (global minus
-tensor-wise) was -0.00723 with a bootstrap interval of [-0.01489, 0.00068]. The experimental phase
-is closed; see `results/global_ties_corrective/README.md` for the frozen interpretation.
+- [`results/multiseed_confirmatory/`](results/multiseed_confirmatory/)
+- [`results/global_ties_corrective/`](results/global_ties_corrective/)
+- [`results/extended_tasks_budget_directionality/`](results/extended_tasks_budget_directionality/)
+- [`results/projection_balanced_long_specialists/`](results/projection_balanced_long_specialists/)
 
-The notebook-10 extension is complete. It expands the design to 45 pair-seed units, compares 400
-with 1200 optimizer steps on seed 42, and evaluates 90 directional observations. CoLA did not learn
-at 400 steps, so the six-task aggregate is reported together with a 30-unit no-CoLA sensitivity
-analysis. Longer training improved all six specialists but increased average merge degradation for
-every frozen method. See `results/extended_tasks_budget_directionality/INTERPRETATION.md`.
+Scientific sources are documented in [`references/README.md`](references/README.md). The mandatory
+AI-use record is maintained separately in [`AI_USAGE.md`](AI_USAGE.md).
 
-Notebook 11 completes the final pre-declared follow-up. On 20 held-out no-CoLA pair-seed units,
-projection-balanced merging is worse than tensor-wise TIES by `-0.00894` on average, with bootstrap
-interval `[-0.01485, -0.00304]`. Directional geometry remains predictive, but one scalar weight per
-task is too coarse to repair coordinate-level interference. The experimental sequence is closed;
-see `results/projection_balanced_long_specialists/INTERPRETATION.md`.
+## Limitations
+
+- All experiments use one compact BERT base architecture.
+- The model identifies the task through its task-specific classification head.
+- The 1,200-step budget comparison begins as a single-seed ablation before the final held-out run.
+- CoLA fails to learn at 400 steps and is excluded from the corresponding primary sensitivity
+  analysis; it becomes viable at 1,200 steps.
+- The results characterize controlled model merging and are not state-of-the-art benchmark claims.

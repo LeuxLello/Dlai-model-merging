@@ -1,4 +1,4 @@
-# Example-level error analysis: interpretation
+# Example-level error analysis
 
 ## Scope
 

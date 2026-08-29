@@ -1,5 +1,9 @@
 # Report
 
-The original course template is stored in `report/template/` and requires unchanged formatting. For one student, the main report is limited to two pages; references may continue onto a third page. The mandatory AI-use statement appears before the references and does not count toward the main two-page limit. An appendix after the references is allowed for secondary plots or experiments, but the central claim and evidence must remain in the main report.
+The original course template is stored in `report/template/` and must retain its formatting. For one
+student, the main report is limited to two pages; references may continue onto a third page. The
+mandatory AI-use statement appears before the references. An optional appendix may follow the
+bibliography, but the main claim and evidence must remain in the two-page report.
 
-Before drafting, complete the corrective global-TIES comparison described in `docs/PROJECT_AUDIT.md`. Use `references/references.bib` as the initial bibliography and adapt the working disclosure in `AI_USAGE.md` honestly rather than copying it mechanically.
+Use `references/references.bib` as the bibliography source and adapt `AI_USAGE.md` into a concise,
+accurate disclosure. Every number in the report must be traceable to a committed result table.

@@ -1,4 +1,4 @@
-# Scope-density TIES: interpretation
+# Scope-density TIES
 
 ## Protocol
 
