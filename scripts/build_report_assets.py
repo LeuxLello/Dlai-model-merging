@@ -160,7 +160,7 @@ main_lines = [
     "\\caption{Held-out merging results at 1,200 training steps on 20 pair--seed units excluding CoLA. "
     "Score changes are measured relative to the corresponding specialists.}\n"
     "\\label{tab:main-results}\n\\begin{tabular}{lrrrr}\n\\hline\n"
-    "Method & Mean $\\Delta$ & SD & Worst $\\Delta$ & Retained \\\\\n+\\hline\n"
+    "Method & Mean $\\Delta$ & SD & Worst $\\Delta$ & Retained \\\\\n\\hline\n"
     + "\n".join(main_lines)
     + "\n\\hline\n\\end{tabular}\n\\end{table}\n",
     encoding="utf-8",
@@ -176,7 +176,7 @@ protocol_lines = [
     "\\caption{Tasks used in the extended protocol. Each run uses up to 12,000 training examples and "
     "2,000 evaluation examples.}\n"
     "\\label{tab:task-protocol}\n\\begin{tabular}{llll}\n\\hline\n"
-    "Task & Dataset & Family & Metric \\\\\n+\\hline\n"
+    "Task & Dataset & Family & Metric \\\\\n\\hline\n"
     + "\n".join(protocol_lines)
     + "\n\\hline\n\\end{tabular}\n\\end{table}\n",
     encoding="utf-8",

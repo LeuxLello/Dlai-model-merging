@@ -52,13 +52,13 @@ src/           reusable Python package
 tests/         unit tests for merging and diagnostics
 results/       compact CSV, JSON, figures, and per-experiment README files
 references/    scientific sources and BibTeX
-report/        official course template
+report/        final report, Overleaf sources, tables, and selected figures
 docs/course/   original project guidelines and provenance
 ```
 
 ## Local setup
 
-Python 3.11 or later is recommended.
+Python 3.12 is recommended, matching the recorded Kaggle environment.
 
 ```bash
 pip install -e ".[dev]"
@@ -86,7 +86,7 @@ directory contains a README with its protocol, tables, limitations, and frozen c
 - [`results/projection_balanced_long_specialists/`](results/projection_balanced_long_specialists/)
 
 Scientific sources are documented in [`references/README.md`](references/README.md). The mandatory
-AI-use record is maintained separately in [`AI_USAGE.md`](AI_USAGE.md).
+AI-use statement is included in the final report.
 
 ## Limitations
 
